@@ -19,6 +19,14 @@ The map uses Mapbox Standard's default colours and daytime lighting, with native
 transit markers are hidden. Drag to pan, scroll to zoom, and right-drag (or
 Ctrl-drag) to rotate and tilt.
 
+Hover major Midtown towers to reveal a blue tint and a luminous outline. The
+effect uses Mapbox building footprints and landmark points, limited to towers
+at least 150 metres tall between approximately 34th and 59th Streets. 270 Park
+Avenue has an explicit landmark anchor because it is missing from Mapbox's
+landmark POI tiles; 30 Rockefeller Plaza also has a tower-specific anchor.
+Detailed native models remain visible beneath the overlay;
+the outline follows the available footprint rather than the model's exact mesh.
+
 ## HeroUI
 
 HeroUI styles are loaded in `src/app/globals.css`. HeroUI v3 does not require a provider.
@@ -40,6 +48,7 @@ See the [HeroUI documentation](https://heroui.com/en/docs/react/getting-started/
 ```sh
 npm run lint
 npm run typecheck
+npm test
 npm run build
 npm start
 ```

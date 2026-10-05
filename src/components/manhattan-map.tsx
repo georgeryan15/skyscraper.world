@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import type { Map } from "mapbox-gl";
+import { addLandmarkHover } from "@/lib/landmark-hover";
 
 export default function ManhattanMap() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -13,6 +14,7 @@ export default function ManhattanMap() {
     let cancelled = false;
     let map: Map | undefined;
     let resizeObserver: ResizeObserver | undefined;
+    let removeHover: (() => void) | undefined;
 
     async function initializeMap() {
       // Load the WebGL renderer only in the browser.
@@ -59,6 +61,9 @@ export default function ManhattanMap() {
           },
         },
       });
+      map.on("style.load", () => {
+        if (map) removeHover = addLandmarkHover(map);
+      });
       // Authentication failures are actionable; individual tile failures can recover.
       map.on("error", (event) => {
         const status = (event.error as Error & { status?: number }).status;
@@ -81,6 +86,7 @@ export default function ManhattanMap() {
 
     return () => {
       cancelled = true;
+      removeHover?.();
       resizeObserver?.disconnect();
       map?.remove();
     };
