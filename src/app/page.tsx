@@ -1,3 +1,5 @@
+import ManhattanMap from "@/components/manhattan-map";
+
 export default function Home() {
-  return <main className="min-h-screen" />;
+  return <ManhattanMap />;
 }

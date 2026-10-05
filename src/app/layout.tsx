@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
+import "mapbox-gl/dist/mapbox-gl.css";
 import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Skyscraper",
-  description: "Skyscraper app",
+  description: "Explore Midtown Manhattan in 3D.",
 };
 
 export default function RootLayout({
