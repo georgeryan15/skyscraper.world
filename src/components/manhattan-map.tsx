@@ -1,12 +1,20 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import type { Map } from "mapbox-gl";
+import BuildingPopup from "@/components/building-popup";
+import BuildingTooltip from "@/components/building-tooltip";
+import { describeBuilding, type BuildingDetails } from "@/lib/buildings";
 import { addLandmarkHover } from "@/lib/landmark-hover";
+import { towerCamera } from "@/lib/tower-camera";
 
 export default function ManhattanMap() {
+  const viewRef = useRef<HTMLElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const mapRef = useRef<Map | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [hovered, setHovered] = useState<BuildingDetails | null>(null);
+  const [selected, setSelected] = useState<BuildingDetails | null>(null);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -61,8 +69,15 @@ export default function ManhattanMap() {
           },
         },
       });
+      mapRef.current = map;
       map.on("style.load", () => {
-        if (map) removeHover = addLandmarkHover(map);
+        removeHover?.();
+        if (map) {
+          removeHover = addLandmarkHover(map, {
+            onHoverChange: (feature) => setHovered(feature && describeBuilding(feature)),
+            onSelect: (feature) => setSelected(feature && describeBuilding(feature)),
+          });
+        }
       });
       // Authentication failures are actionable; individual tile failures can recover.
       map.on("error", (event) => {
@@ -89,12 +104,48 @@ export default function ManhattanMap() {
       removeHover?.();
       resizeObserver?.disconnect();
       map?.remove();
+      mapRef.current = null;
     };
   }, []);
 
+  const closePopup = useCallback(() => setSelected(null), []);
+
+  // Hand the panel's space back to the map once it closes.
+  useEffect(() => {
+    const map = mapRef.current;
+    if (selected || !map) return;
+    const { top, right, bottom, left } = map.getPadding();
+    if (top || right || bottom || left) map.easeTo({ padding: { top: 0, right: 0, bottom: 0, left: 0 }, duration: 600 });
+  }, [selected]);
+
+  const flyTo = useCallback((building: BuildingDetails, panel: HTMLElement | null) => {
+    const map = mapRef.current;
+    if (!map || !building.coordinates) return;
+    // Frame the whole tower in the part of the map the panel leaves uncovered.
+    const view = map.getCanvas().getBoundingClientRect();
+    const covered = panel?.getBoundingClientRect();
+    const padding = { top: 0, right: 0, bottom: 0, left: 0 };
+    // A side panel leaves more room beside it; a bottom sheet, above it.
+    if (covered && (covered.left - view.left) * view.height > (covered.top - view.top) * view.width) {
+      padding.right = view.right - covered.left;
+    } else if (covered) {
+      padding.bottom = view.bottom - covered.top;
+    }
+    const camera = towerCamera(
+      { coordinates: building.coordinates, heightM: building.heightM },
+      { bearing: map.getBearing(), viewportHeight: view.height, padding },
+    );
+    map.flyTo({ ...camera, duration: 2400 });
+  }, []);
+
+  // The popup already names the building it was opened for.
+  const tooltipBuilding = hovered && hovered.id !== selected?.id ? hovered : null;
+
   return (
-    <main className="map-view" aria-label="Interactive 3D map of Midtown Manhattan">
+    <main ref={viewRef} className="map-view" aria-label="Interactive 3D map of Midtown Manhattan">
       <div ref={containerRef} className="map-canvas" />
+      <BuildingTooltip building={tooltipBuilding} containerRef={viewRef} />
+      <BuildingPopup building={selected} onClose={closePopup} onFlyTo={flyTo} />
       {error && (
         <div className="map-error" role="alert">
           <p>{error}</p>

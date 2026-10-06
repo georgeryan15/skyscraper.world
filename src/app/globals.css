@@ -36,3 +36,598 @@ body {
 .map-error p {
   max-width: 420px;
 }
+
+/* Building tooltip and popup ------------------------------------------- */
+
+:root {
+  --ink: #0f2230;
+  --ink-soft: #46596a;
+  /* The landmark outline's cyan, and a darker shade that holds up as text. */
+  --glow: #14c7ff;
+  --glow-deep: #0779a3;
+  --glass-shadow: 15 34 48;
+}
+
+.liquid-glass {
+  --glass-tint: rgb(246 250 252 / 0.36);
+  --glass-blur: 10px;
+  --glass-saturate: 1.8;
+  position: relative;
+  isolation: isolate;
+  border-radius: var(--glass-radius, 20px);
+  background: var(--glass-tint);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  /* --glass-lens adds edge refraction where SVG backdrop filters render. */
+  backdrop-filter: var(--glass-lens,) blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  box-shadow:
+    inset 0 1px 0.5px rgb(255 255 255 / 0.9),
+    inset 0 -1px 1px rgb(255 255 255 / 0.4),
+    inset 0 0 20px rgb(255 255 255 / 0.2),
+    0 1px 2px rgb(var(--glass-shadow) / 0.1),
+    0 14px 36px -12px rgb(var(--glass-shadow) / 0.38);
+}
+
+/* A specular rim, brightest where light would strike the top-left edge. */
+.liquid-glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  padding: 1px;
+  border-radius: inherit;
+  background: linear-gradient(
+    150deg,
+    rgb(255 255 255 / 0.95),
+    rgb(255 255 255 / 0.18) 32%,
+    rgb(255 255 255 / 0) 58%,
+    rgb(255 255 255 / 0.55)
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  pointer-events: none;
+}
+
+.liquid-glass::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: radial-gradient(130% 80% at 18% -18%, rgb(255 255 255 / 0.4), transparent 58%);
+  pointer-events: none;
+}
+
+.liquid-glass__defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+.glass-orb {
+  --glass-radius: 999px;
+  --glass-tint: rgb(255 255 255 / 0.22);
+  --glass-blur: 2px;
+}
+
+/* Tooltip */
+
+.building-tooltip {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.building-tooltip[data-placed="true"] {
+  transition: transform 140ms cubic-bezier(0.2, 0.8, 0.3, 1);
+}
+
+.building-tooltip__glass {
+  --glass-radius: 18px;
+  --glass-tint: rgb(246 250 252 / 0.46);
+  --glass-blur: 3px;
+  --glass-saturate: 1.6;
+  display: flex;
+  gap: 11px;
+  min-width: 184px;
+  max-width: 264px;
+  padding: 11px 16px 12px 11px;
+  color: var(--ink);
+  font-family: var(--font-archivo), system-ui, sans-serif;
+  transform-origin: var(--origin, top left);
+}
+
+.building-tooltip[data-state="open"] .building-tooltip__glass {
+  animation: glass-bloom 380ms both;
+}
+
+.building-tooltip[data-state="closed"] .building-tooltip__glass {
+  animation: glass-fold 160ms cubic-bezier(0.4, 0, 1, 1) both;
+}
+
+/* Height relative to the tallest tower in the catalog. */
+.building-tooltip__gauge {
+  position: relative;
+  flex: none;
+  width: 4px;
+  border-radius: 2px;
+  background: rgb(var(--glass-shadow) / 0.14);
+  overflow: hidden;
+}
+
+.building-tooltip__gauge::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(to top, var(--glow-deep), var(--glow));
+  box-shadow: 0 0 8px var(--glow);
+  transform: scaleY(var(--height-ratio));
+  transform-origin: bottom;
+}
+
+.building-tooltip[data-state="open"] .building-tooltip__gauge::after {
+  animation: gauge-rise 500ms 90ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.building-tooltip__body {
+  display: grid;
+  gap: 2px;
+}
+
+.building-tooltip[data-state="open"] .building-tooltip__body {
+  animation: content-in 200ms 80ms ease-out both;
+}
+
+.building-tooltip__name {
+  font-size: 17px;
+  font-weight: 650;
+  font-stretch: 78%;
+  line-height: 1.15;
+  letter-spacing: -0.005em;
+}
+
+.building-tooltip__meta {
+  font-size: 13px;
+  line-height: 1.35;
+  color: var(--ink-soft);
+}
+
+.building-tooltip__height {
+  color: var(--ink);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.building-tooltip__hint {
+  margin-top: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--glow-deep);
+}
+
+/* Popup */
+
+.building-popup {
+  /* HeroUI tokens, retuned for buttons sitting on glass. */
+  --accent: var(--ink);
+  --accent-hover: #1d3b51;
+  --accent-foreground: #fff;
+  --default: rgb(255 255 255 / 0.5);
+  --default-hover: rgb(255 255 255 / 0.75);
+  --default-foreground: var(--ink);
+  --accent-soft-foreground: var(--ink);
+  --focus: var(--glow-deep);
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 4;
+  display: flex;
+  width: min(400px, calc(100% - 32px));
+  max-height: calc(100% - 32px);
+  outline: none;
+  color: var(--ink);
+  font-family: var(--font-archivo), system-ui, sans-serif;
+}
+
+.building-popup__glass {
+  --glass-radius: 30px;
+  --glass-tint: rgb(246 250 252 / 0.58);
+  --glass-blur: 12px;
+  --glass-saturate: 1.9;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 0;
+  transform-origin: right center;
+}
+
+.building-popup[data-state="open"] .building-popup__glass {
+  animation: popup-in 620ms both;
+}
+
+.building-popup[data-state="closed"] .building-popup__glass {
+  animation: popup-out 200ms cubic-bezier(0.4, 0, 1, 1) both;
+}
+
+.building-popup:focus-visible .building-popup__glass {
+  outline: 2px solid var(--glow-deep);
+  outline-offset: 3px;
+}
+
+.building-popup__content {
+  position: relative;
+  min-height: 0;
+  padding: 8px 8px 20px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  animation: content-in 320ms ease-out both;
+}
+
+.building-popup__photo {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  margin: 0;
+  /* Concentric with the panel: its radius minus the 8px inset. */
+  border-radius: 22px;
+  overflow: hidden;
+  background: rgb(255 255 255 / 0.35);
+}
+
+.building-popup__photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  opacity: 0;
+  transition: opacity 320ms ease-out;
+}
+
+.building-popup__photo[data-status="loaded"] img {
+  opacity: 1;
+}
+
+.building-popup__photo[data-status="loading"]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(100deg, transparent 30%, rgb(255 255 255 / 0.55) 50%, transparent 70%);
+  background-size: 250% 100%;
+  animation: shimmer 1.4s linear infinite;
+}
+
+.building-popup__photo[data-status="error"] {
+  aspect-ratio: auto;
+  height: 96px;
+}
+
+.building-popup__no-photo {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  margin: 0;
+  font-size: 14px;
+  color: var(--ink-soft);
+}
+
+.building-popup__close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  z-index: 1;
+}
+
+.building-popup__close .close-button {
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink);
+}
+
+.building-popup__close .close-button:hover {
+  background: rgb(255 255 255 / 0.35);
+}
+
+.building-popup__credit {
+  --glass-radius: 999px;
+  --glass-tint: rgb(246 250 252 / 0.5);
+  --glass-blur: 4px;
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  max-width: calc(100% - 20px);
+  box-shadow: inset 0 1px 0.5px rgb(255 255 255 / 0.9);
+}
+
+.building-popup__credit a {
+  display: block;
+  padding: 4px 10px;
+  overflow: hidden;
+  font-size: 11px;
+  color: var(--ink);
+  text-decoration: none;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.building-popup__credit a:hover {
+  text-decoration: underline;
+}
+
+.building-popup__body {
+  padding: 0 12px;
+}
+
+.building-popup__content[data-photo="false"] .building-popup__title {
+  margin-top: 16px;
+}
+
+.building-popup__title {
+  margin: 20px 0 6px;
+  padding-right: 44px;
+  font-size: 32px;
+  font-weight: 650;
+  font-stretch: 70%;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+.building-popup__address {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--ink-soft);
+}
+
+.building-popup__facts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px 16px;
+  margin: 20px 0 0;
+  padding: 16px 0 0;
+  border-top: 1px solid rgb(var(--glass-shadow) / 0.12);
+}
+
+.building-popup__fact--wide {
+  grid-column: 1 / -1;
+}
+
+.building-popup__facts dt {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ink-soft);
+}
+
+.building-popup__facts dd {
+  margin: 2px 0 0;
+  font-size: 17px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.building-popup__facts dd span {
+  margin-left: 4px;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--ink-soft);
+}
+
+.skyline {
+  margin: 20px 0 0;
+}
+
+.skyline__bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 64px;
+  border-bottom: 1px solid rgb(var(--glass-shadow) / 0.25);
+}
+
+.skyline__bar {
+  flex: 1;
+  height: calc(var(--bar-height) * 100%);
+  border-radius: 2px 2px 0 0;
+  background: rgb(var(--glass-shadow) / 0.12);
+}
+
+.skyline__bar[data-current] {
+  background: linear-gradient(to top, var(--glow-deep), var(--glow));
+  box-shadow: 0 0 14px rgb(20 199 255 / 0.55);
+  transform-origin: bottom;
+  animation: gauge-rise 760ms 180ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.skyline__caption {
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+
+.building-popup__summary {
+  max-width: 60ch;
+  margin: 16px 0 0;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.building-popup__actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.building-popup__action {
+  flex: 1;
+}
+
+@media (max-width: 640px) {
+  .building-popup {
+    top: auto;
+    right: 12px;
+    bottom: 12px;
+    left: 12px;
+    width: auto;
+    max-height: 72%;
+  }
+
+  .building-popup__glass {
+    transform-origin: center bottom;
+  }
+
+  .building-popup[data-state="open"] .building-popup__glass {
+    animation-name: sheet-in;
+  }
+
+  .building-popup[data-state="closed"] .building-popup__glass {
+    animation-name: sheet-out;
+  }
+
+  .building-popup__photo {
+    aspect-ratio: 16 / 9;
+  }
+}
+
+/* Squash and stretch, settling like a drop of liquid. */
+@keyframes glass-bloom {
+  0% {
+    opacity: 0;
+    transform: scale(0.72, 0.62);
+    border-radius: 36px;
+    animation-timing-function: cubic-bezier(0.2, 0.9, 0.3, 1);
+  }
+  48% {
+    opacity: 1;
+    transform: scale(1.025, 0.985);
+    animation-timing-function: ease-in-out;
+  }
+  76% {
+    transform: scale(0.995, 1.006);
+    animation-timing-function: ease-out;
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes glass-fold {
+  to {
+    opacity: 0;
+    transform: scale(0.86, 0.8);
+  }
+}
+
+@keyframes popup-in {
+  0% {
+    opacity: 0;
+    transform: translateX(32px) scale(0.94, 0.97);
+    animation-timing-function: cubic-bezier(0.2, 0.9, 0.3, 1);
+  }
+  55% {
+    opacity: 1;
+    transform: translateX(-4px) scale(1.01, 0.995);
+    animation-timing-function: ease-in-out;
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes popup-out {
+  to {
+    opacity: 0;
+    transform: translateX(24px) scale(0.96);
+  }
+}
+
+@keyframes sheet-in {
+  0% {
+    opacity: 0;
+    transform: translateY(48px) scale(0.96, 0.94);
+    animation-timing-function: cubic-bezier(0.2, 0.9, 0.3, 1);
+  }
+  55% {
+    opacity: 1;
+    transform: translateY(-4px) scale(0.995, 1.01);
+    animation-timing-function: ease-in-out;
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes sheet-out {
+  to {
+    opacity: 0;
+    transform: translateY(32px) scale(0.97);
+  }
+}
+
+@keyframes content-in {
+  from {
+    opacity: 0;
+    transform: translateY(3px);
+  }
+}
+
+@keyframes gauge-rise {
+  from {
+    transform: scaleY(0);
+  }
+}
+
+@keyframes shimmer {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: -150% 0;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .building-tooltip[data-placed="true"] {
+    transition: none;
+  }
+
+  .building-tooltip[data-state="open"] .building-tooltip__glass,
+  .building-popup[data-state="open"] .building-popup__glass {
+    animation: fade-in 120ms ease-out both;
+  }
+
+  .building-tooltip[data-state="closed"] .building-tooltip__glass,
+  .building-popup[data-state="closed"] .building-popup__glass {
+    animation: fade-out 120ms ease-in both;
+  }
+
+  .building-tooltip[data-state="open"] .building-tooltip__body,
+  .building-tooltip[data-state="open"] .building-tooltip__gauge::after,
+  .building-popup__content,
+  .skyline__bar[data-current],
+  .building-popup__photo[data-status="loading"]::after {
+    animation: none;
+  }
+}

@@ -1,5 +1,9 @@
-import type { GeoJSONSource, Map, MapMouseEvent, MapSourceDataEvent } from "mapbox-gl";
-import type { Feature, FeatureCollection, MultiPolygon, Point, Polygon, Position } from "geojson";
+import type {
+  ExpressionSpecification, FilterSpecification, Map, MapMouseEvent, MapSourceDataEvent, MapboxGeoJSONFeature,
+} from "mapbox-gl";
+import type { Feature, Position } from "geojson";
+import { createLandmarkGlow, type GlowState } from "./landmark-glow.ts";
+import { maskCovers, type LandmarkMask } from "./landmark-hit-test.ts";
 
 const MIDTOWN = [
   [-73.9915, 40.7745],
@@ -7,233 +11,353 @@ const MIDTOWN = [
   [-73.9727, 40.7405],
   [-74.007, 40.7545],
 ];
-const EMPTY: FeatureCollection = { type: "FeatureCollection", features: [] };
-const TILES = "midtown-building-tiles";
-const LANDMARKS = "midtown-landmark-tiles";
-const BUILDINGS = "midtown-major-buildings";
-const HOVER = "midtown-building-hover";
-const HIT_LAYER = "midtown-building-hit-area";
-// Explicit tower anchors cover the requested buildings: the Rockefeller POI
-// describes the wider complex, and 270 Park is not yet in the landmark POI tiles.
-const ADDITIONAL_LANDMARKS: Feature<Point>[] = [{
-  type: "Feature",
-  properties: { name: "270 Park Avenue" },
-  geometry: { type: "Point", coordinates: [-73.9754, 40.7556] },
-}, {
-  type: "Feature",
-  properties: { name: "30 Rockefeller Plaza" },
-  geometry: { type: "Point", coordinates: [-73.9792, 40.7590] },
-}];
+const SOURCE = "landmark-meshes";
+const HIT_LAYER = "landmark-base-meshes";
+const SELECTED_LAYER = "landmark-selected-mesh";
+const NO_SELECTION: FilterSpecification = ["==", ["id"], ""];
+const ENTER_MS = 200;
+const EXIT_MS = 150;
+// Silhouette tolerance in CSS pixels: tight to acquire a model, looser to keep
+// it, so antialiased edges and mullions do not make the hover flicker.
+const ACQUIRE_RADIUS = 2;
+const RETAIN_RADIUS = 5;
+// Silhouettes are valid for one camera position; this covers nearby towers.
+const MASK_CACHE_SIZE = 12;
 
-type Building = Feature<Polygon | MultiPolygon>;
+const BASE_COLOR: ExpressionSpecification = ["match", ["get", "part"], "window", "#a7c8e5", "roof", "#f5e8dc", "#ffffff"];
+const BASE_EMISSIVE: ExpressionSpecification = ["match", ["get", "part"], "window", 0.4, "wall", 0.8, 0];
+const BASE_ROUGHNESS: ExpressionSpecification = ["match", ["get", "part"], "window", 0, 1];
+// The selected layer matches the base until a model is confirmed under the
+// pointer, so probing one is invisible; the "hover" state then blends it.
+const HOVER: ExpressionSpecification = ["number", ["feature-state", "hover"], 0];
+const towardHighlight = (base: unknown, highlight: unknown) =>
+  ["interpolate", ["linear"], HOVER, 0, base, 1, highlight] as ExpressionSpecification;
 
 function isInMidtown([lng, lat]: Position): boolean {
   let inside = false;
   for (let i = 0, j = MIDTOWN.length - 1; i < MIDTOWN.length; j = i++) {
     const [xi, yi] = MIDTOWN[i];
     const [xj, yj] = MIDTOWN[j];
-    if ((yi > lat) !== (yj > lat) && lng < ((xj - xi) * (lat - yi)) / (yj - yi) + xi) {
-      inside = !inside;
-    }
+    if ((yi > lat) !== (yj > lat) && lng < ((xj - xi) * (lat - yi)) / (yj - yi) + xi) inside = !inside;
   }
   return inside;
 }
 
-export function isMajorMidtownBuilding(feature: Feature): feature is Building {
-  if (!feature.geometry || !["Polygon", "MultiPolygon"].includes(feature.geometry.type)) return false;
-  if (Number(feature.properties?.height) < 150 || !Number.isFinite(Number(feature.properties?.height))) return false;
-  const geometry = feature.geometry as Polygon | MultiPolygon;
-  const ring = geometry.type === "Polygon" ? geometry.coordinates[0] : geometry.coordinates[0][0];
-  return ring.length > 0 && isInMidtown(ring[0]);
+export function isMajorMidtownBuilding(feature: Feature): boolean {
+  const height = Number(feature.properties?.height);
+  if (!Number.isFinite(height) || height < 150) return false;
+  // Native model queries return the model's geographic anchor, not a footprint.
+  return feature.geometry?.type === "Point" && isInMidtown(feature.geometry.coordinates);
 }
 
-function distanceToFootprint(point: Position, building: Building): number {
-  const rings = building.geometry.type === "Polygon"
-    ? [building.geometry.coordinates[0]]
-    : building.geometry.coordinates.map((polygon) => polygon[0]);
-  let closest = Infinity;
-  for (const ring of rings) {
-    let inside = false;
-    for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
-      const [xi, yi] = ring[i];
-      const [xj, yj] = ring[j];
-      if ((yi > point[1]) !== (yj > point[1]) && point[0] < ((xj - xi) * (point[1] - yi)) / (yj - yi) + xi) inside = !inside;
-      const ax = (xi - point[0]) * 84_300;
-      const ay = (yi - point[1]) * 111_000;
-      const bx = (xj - point[0]) * 84_300;
-      const by = (yj - point[1]) * 111_000;
-      const dx = bx - ax;
-      const dy = by - ay;
-      const t = Math.max(0, Math.min(1, -(ax * dx + ay * dy) / (dx * dx + dy * dy || 1)));
-      closest = Math.min(closest, Math.hypot(ax + t * dx, ay + t * dy));
-    }
-    if (inside) return 0;
+type ModelBucket = { uploaded?: boolean; setFilter?: (filter: FilterSpecification) => void };
+type InternalStyle = {
+  getOwnLayer?: (id: string) => { filter?: FilterSpecification } | undefined;
+  getLayerSourceCache?: (layer: object) => {
+    getIds(): number[];
+    getTileByID(id: number): { getBucket(layer: object): ModelBucket | undefined } | undefined;
+  } | undefined;
+};
+
+/** Swap the models in a batched-model layer within a single frame.
+ * Mapbox filters these models on the main thread, but `setFilter` also reloads
+ * and re-parses every tile of the source, so changing it on hover stalls the
+ * map. Update the filter in place on the layer and on each loaded tile's bucket:
+ * the replacement pass reads the buckets before drawing, so updating the layer
+ * alone would drop the previously selected model for one frame. Buckets upload
+ * only the models their filter passes, so new ones are left unfiltered until
+ * Mapbox has uploaded them. Falls back to the public API should these
+ * internals change.
+ */
+export function applyModelFilter(map: Map, layerId: string, filter: FilterSpecification) {
+  const style = (map as unknown as { style?: InternalStyle }).style;
+  const layer = style?.getOwnLayer?.(layerId);
+  const cache = layer && style?.getLayerSourceCache?.(layer);
+  if (!layer || !cache || !("filter" in layer)) {
+    map.setFilter(layerId, filter);
+    return;
   }
-  return closest;
-}
-
-export function matchLandmarkBuildings(buildings: Building[], landmarks: Feature[]): Building[] {
-  const matches = new globalThis.Map<string | number, Building>();
-  for (const landmark of landmarks) {
-    if (landmark.geometry?.type !== "Point" || !isInMidtown(landmark.geometry.coordinates)) continue;
-    let closest: Building | undefined;
-    let closestDistance = 90;
-    for (const building of buildings) {
-      const distance = distanceToFootprint(landmark.geometry.coordinates, building);
-      if (distance < closestDistance || (distance === closestDistance && Number(building.properties?.height) > Number(closest?.properties?.height ?? 0))) {
-        closest = building;
-        closestDistance = distance;
-      }
-    }
-    if (closest?.id !== undefined) {
-      // Stepped towers have multiple overlapping footprints at different heights.
-      // Keep those parts together so hovering a side wing highlights the tower too.
-      for (const building of buildings) {
-        if (building.id !== undefined && distanceToFootprint(landmark.geometry.coordinates, building) <= closestDistance + 1) {
-          matches.set(building.id, {
-            ...building,
-            properties: { ...building.properties, hover_group: closest.id },
-          });
-        }
-      }
-    }
+  layer.filter = filter;
+  for (const id of cache.getIds()) {
+    const bucket = cache.getTileByID(id)?.getBucket(layer);
+    if (bucket?.uploaded) bucket.setFilter?.(filter);
   }
-  return [...matches.values()];
+  map.triggerRepaint();
 }
 
-/** Native Mapbox footprints keep the hover geometry aligned with the basemap. */
-export function addLandmarkHover(map: Map): () => void {
-  map.addSource(TILES, { type: "vector", url: "mapbox://mapbox.mapbox-streets-v8" });
-  map.addSource(LANDMARKS, { type: "vector", url: "mapbox://mapbox.mapbox-landmark-pois-v1" });
-  map.addLayer({
-    id: "midtown-landmark-tile-loader",
-    type: "circle",
-    source: LANDMARKS,
-    "source-layer": "landmarks_poi",
-    minzoom: 14,
-    paint: { "circle-opacity": 0, "circle-radius": 1 },
-  });
-  // This invisible layer loads the native building tiles without drawing markers.
-  map.addLayer({
-    id: "midtown-building-tile-loader",
-    type: "fill",
-    source: TILES,
-    "source-layer": "building",
-    minzoom: 14,
-    paint: { "fill-opacity": 0 },
-  });
-  map.addSource(BUILDINGS, { type: "geojson", data: EMPTY });
-  map.addSource(HOVER, { type: "geojson", data: EMPTY });
+export type LandmarkEvents = {
+  /** The pointer settled on a visible model, or left it (null). */
+  onHoverChange?: (feature: MapboxGeoJSONFeature | null) => void;
+  /** A click on a model, or on anything else (null). */
+  onSelect?: (feature: MapboxGeoJSONFeature | null) => void;
+};
 
-  // A separate GeoJSON hit area avoids the landmark replacement clipping that
-  // Mapbox applies to its ordinary building vector layers.
+/** Use the very same landmark meshes as Standard, including their material parts. */
+export function addLandmarkHover(map: Map, events: LandmarkEvents = {}): () => void {
+  map.addSource(SOURCE, { type: "batched-model", url: "mapbox://mapbox.mapbox-3dbuildings-v1" });
+  // A root model source replaces the imported landmarks through Mapbox's
+  // conflation. Render their muted base materials here as well as querying them.
   map.addLayer({
     id: HIT_LAYER,
-    type: "fill-extrusion",
-    source: BUILDINGS,
-    slot: "top",
-    minzoom: 14.5,
+    type: "model",
+    source: SOURCE,
+    minzoom: 14.6,
     paint: {
-      "fill-extrusion-color": "#ffffff",
-      "fill-extrusion-opacity": 0.001,
-      "fill-extrusion-height": ["get", "height"],
-      "fill-extrusion-base": ["coalesce", ["get", "min_height"], 0],
-      "fill-extrusion-cast-shadows": false,
-    },
-  });
-  map.addLayer({
-    id: "midtown-building-tint",
-    type: "fill-extrusion",
-    source: HOVER,
-    slot: "top",
-    minzoom: 14.5,
-    paint: {
-      "fill-extrusion-color": "#389cdb",
-      "fill-extrusion-opacity": 0.32,
-      "fill-extrusion-height": ["+", ["get", "height"], 0.6],
-      "fill-extrusion-base": ["coalesce", ["get", "min_height"], 0],
-      "fill-extrusion-emissive-strength": 0.35,
-      "fill-extrusion-vertical-gradient": false,
-      "fill-extrusion-cast-shadows": false,
-    },
-  });
-  map.addLayer({
-    id: "midtown-building-outline",
-    type: "fill-extrusion",
-    source: HOVER,
-    slot: "top",
-    minzoom: 14.5,
-    paint: {
-      "fill-extrusion-color": "#69c6ff",
-      "fill-extrusion-opacity": 0.8,
-      "fill-extrusion-height": ["+", ["get", "height"], 1],
-      "fill-extrusion-base": ["coalesce", ["get", "min_height"], 0],
-      "fill-extrusion-line-width": 1.5,
-      "fill-extrusion-emissive-strength": 0.75,
-      "fill-extrusion-vertical-gradient": false,
-      "fill-extrusion-cast-shadows": false,
+      "model-color": BASE_COLOR,
+      "model-color-mix-intensity": 1,
+      "model-emissive-strength": BASE_EMISSIVE,
+      "model-ambient-occlusion-intensity": 0.75,
+      "model-roughness": BASE_ROUGHNESS,
     },
   });
 
-  let hoveredId: string | number | undefined;
-  let dataSignature = "";
-  let currentBuildings: Building[] = [];
-  const updateBuildings = () => {
-    const buildings = new globalThis.Map<string | number, Building>();
-    for (const feature of map.querySourceFeatures(TILES, { sourceLayer: "building" })) {
-      if (feature.id !== undefined && isMajorMidtownBuilding(feature)) {
-        // Materialize the SDK's lazily decoded geometry before giving it to GeoJSON.
-        buildings.set(feature.id, {
-          type: "Feature", id: feature.id, properties: feature.properties, geometry: feature.geometry,
-        });
-      }
-    }
-    const landmarks = map.querySourceFeatures(LANDMARKS, { sourceLayer: "landmarks_poi" });
-    const features = matchLandmarkBuildings([...buildings.values()], [...landmarks, ...ADDITIONAL_LANDMARKS]);
-    const signature = JSON.stringify(features);
-    if (signature !== dataSignature) {
-      dataSignature = signature;
-      currentBuildings = features;
-      (map.getSource(BUILDINGS) as GeoJSONSource).setData({ type: "FeatureCollection", features });
-    }
-  };
-  const clear = () => {
-    if (hoveredId !== undefined) (map.getSource(HOVER) as GeoJSONSource).setData(EMPTY);
-    hoveredId = undefined;
-    map.getCanvas().style.cursor = "";
-  };
-  const handleMove = (event: MapMouseEvent) => {
-    if (map.isMoving()) return;
-    const feature = map.queryRenderedFeatures(event.point, { layers: [HIT_LAYER] })[0];
-    const group = feature?.properties?.hover_group as string | number | undefined;
-    if (group === undefined) {
+  const canvas = map.getCanvas();
+  const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const masks = new globalThis.Map<string | number, LandmarkMask>();
+  let disposed = false;
+  let unsupported = false;
+  // The model in the selected layer: being probed, shown, or fading out.
+  let selected: MapboxGeoJSONFeature | undefined;
+  let shown = false;
+  let leaving = false;
+  let strength = 0;
+  let announcedId: string | number | undefined;
+  let lastPoint: MapMouseEvent["point"] | null = null;
+  let queryFrame = 0;
+  let fadeFrame = 0;
+
+  const state: GlowState = {
+    active: false, amount: 0, generation: 0, readback: null, bounds: null,
+    onMask(generation, mask) {
+      if (disposed || generation !== state.generation || selected?.id === undefined) return;
+      state.readback = null;
+      remember(selected.id, mask);
+      evaluate();
+    },
+    onUnsupported() {
+      unsupported = true;
+      console.warn("Landmark hover is unavailable: this renderer's depth buffer cannot be copied.");
       clear();
+    },
+  };
+  const glow = createLandmarkGlow(map, state);
+  map.addLayer(glow.capture);
+  // Only the selected model is drawn between the capture and composite layers,
+  // which is what lets them trace its silhouette from the depth buffer.
+  map.addLayer({
+    id: SELECTED_LAYER,
+    type: "model",
+    source: SOURCE,
+    minzoom: 14.6,
+    filter: NO_SELECTION,
+    paint: {
+      "model-color": towardHighlight(BASE_COLOR,
+        ["match", ["get", "part"], "window", "#269ebc", "roof", "#e5c39b", "wall", "#f2e1cb", "#b7d6df"]),
+      "model-color-mix-intensity": towardHighlight(1, 0.85),
+      "model-emissive-strength": towardHighlight(BASE_EMISSIVE, 0.28),
+      "model-ambient-occlusion-intensity": 0.75,
+      "model-roughness": towardHighlight(BASE_ROUGHNESS, ["match", ["get", "part"], "window", 0.2, 0.8]),
+    },
+  });
+  map.addLayer(glow.composite);
+
+  function remember(id: string | number, mask: LandmarkMask) {
+    masks.delete(id);
+    masks.set(id, mask);
+    if (masks.size > MASK_CACHE_SIZE) masks.delete(masks.keys().next().value!);
+  }
+
+  function setStrength(value: number) {
+    strength = state.amount = value;
+    if (selected?.id !== undefined) map.setFeatureState({ source: SOURCE, id: selected.id }, { hover: value });
+    map.triggerRepaint();
+  }
+
+  function fade(target: number, done?: () => void) {
+    cancelAnimationFrame(fadeFrame);
+    fadeFrame = 0;
+    if (motion.matches) {
+      setStrength(target);
+      done?.();
       return;
     }
-    if (group === hoveredId) return;
-    hoveredId = group;
-    (map.getSource(HOVER) as GeoJSONSource).setData({
-      type: "FeatureCollection",
-      features: currentBuildings.filter((building) => building.properties?.hover_group === group),
-    });
-    map.getCanvas().style.cursor = "pointer";
-  };
+    const from = strength;
+    const duration = target > from ? ENTER_MS : EXIT_MS;
+    const start = performance.now();
+    const step = (now: number) => {
+      const progress = Math.min(1, Math.max(0, (now - start) / duration));
+      setStrength(from + (target - from) * (1 - Math.pow(1 - progress, 3)));
+      fadeFrame = progress < 1 ? requestAnimationFrame(step) : 0;
+      if (progress === 1) done?.();
+    };
+    fadeFrame = requestAnimationFrame(step);
+  }
 
-  const handleSourceData = (event: MapSourceDataEvent) => {
-    if ((event.sourceId === TILES || event.sourceId === LANDMARKS) && event.isSourceLoaded) updateBuildings();
-  };
+  // Report only confirmed models, once each.
+  function announce(feature?: MapboxGeoJSONFeature) {
+    if (feature?.id === announcedId) return;
+    announcedId = feature?.id;
+    events.onHoverChange?.(feature ?? null);
+  }
 
-  map.on("sourcedata", handleSourceData);
-  map.on("idle", updateBuildings);
+  function select(feature?: MapboxGeoJSONFeature) {
+    cancelAnimationFrame(fadeFrame);
+    fadeFrame = 0;
+    if (selected?.id !== undefined) map.removeFeatureState({ source: SOURCE, id: selected.id });
+    if (shown) {
+      canvas.style.cursor = "";
+      announce();
+    }
+    selected = feature;
+    shown = leaving = false;
+    strength = state.amount = 0;
+    state.active = feature !== undefined;
+    state.bounds = null;
+    state.readback = null;
+    state.generation++;
+    applyModelFilter(map, SELECTED_LAYER, feature ? ["==", ["id"], feature.id!] : NO_SELECTION);
+  }
+
+  /** Trace a model's silhouette, out of sight, before deciding to show it. */
+  function probe(feature: MapboxGeoJSONFeature) {
+    if (selected?.id !== feature.id) select(feature);
+    if (state.readback === state.generation) return;
+    state.readback = state.generation;
+    map.triggerRepaint();
+  }
+
+  function show(feature: MapboxGeoJSONFeature, mask: LandmarkMask) {
+    if (selected?.id !== feature.id) select(feature);
+    state.bounds = mask.bounds;
+    if (shown && !leaving) return;
+    shown = true;
+    leaving = false;
+    canvas.style.cursor = "pointer";
+    announce(feature);
+    fade(1);
+  }
+
+  function hide() {
+    if (!selected || leaving) return;
+    if (!shown) {
+      select();
+      return;
+    }
+    leaving = true;
+    canvas.style.cursor = "";
+    announce();
+    fade(0, () => select());
+  }
+
+  function clear() {
+    cancelAnimationFrame(queryFrame);
+    queryFrame = 0;
+    if (selected) select();
+  }
+
+  function evaluate() {
+    queryFrame = 0;
+    if (!lastPoint || disposed || unsupported || map.isMoving()) return;
+    // The selected model is hidden from base-layer queries, so test it first.
+    // While the pointer stays on it, nothing is queried or re-rendered.
+    if (selected) {
+      const mask = masks.get(selected.id!);
+      if (!mask) {
+        probe(selected);
+        return;
+      }
+      if (maskCovers(mask, lastPoint, canvas, shown && !leaving ? RETAIN_RADIUS : ACQUIRE_RADIUS)) {
+        show(selected, mask);
+        return;
+      }
+    }
+    // Model queries hit whole bounding boxes, nearest first. Probe each
+    // candidate's silhouette once; cached ones are decided without rendering.
+    const seen = new Set(selected ? [selected.id] : []);
+    for (const candidate of map.queryRenderedFeatures(lastPoint, { layers: [HIT_LAYER] })) {
+      if (candidate.id === undefined || seen.has(candidate.id) || !isMajorMidtownBuilding(candidate)) continue;
+      seen.add(candidate.id);
+      const mask = masks.get(candidate.id);
+      if (!mask) {
+        probe(candidate);
+        return;
+      }
+      if (maskCovers(mask, lastPoint, canvas, ACQUIRE_RADIUS)) {
+        show(candidate, mask);
+        return;
+      }
+    }
+    hide();
+  }
+
+  function schedule() {
+    if (!queryFrame) queryFrame = requestAnimationFrame(evaluate);
+  }
+  function handleMove(event: MapMouseEvent) {
+    lastPoint = event.point;
+    schedule();
+  }
+  function handleLeave() {
+    lastPoint = null;
+    clear();
+  }
+  function handleMoveStart() {
+    // Silhouettes belong to the camera position they were traced from.
+    masks.clear();
+    clear();
+  }
+  function handleMoveEnd() {
+    if (lastPoint) schedule();
+  }
+  function handleSourceData(event: MapSourceDataEvent) {
+    // New models may change the silhouettes traced so far.
+    if (event.sourceId === SOURCE && event.tile) masks.clear();
+  }
+  function handleResize() {
+    masks.clear();
+    clear();
+  }
+  function handleClick(event: MapMouseEvent) {
+    if (shown && !leaving && selected) {
+      events.onSelect?.(selected);
+      return;
+    }
+    // Touch has no hover to verify the model, so take the tallest candidate.
+    const tapped = window.matchMedia("(hover: none)").matches
+      ? map.queryRenderedFeatures(event.point, { layers: [HIT_LAYER] })
+        .filter(isMajorMidtownBuilding)
+        .sort((a, b) => Number(b.properties?.height) - Number(a.properties?.height))[0]
+      : undefined;
+    events.onSelect?.(tapped ?? null);
+  }
+
   map.on("mousemove", handleMove);
-  map.on("movestart", clear);
-  const canvas = map.getCanvas();
-  canvas.addEventListener("mouseleave", clear);
+  map.on("click", handleClick);
+  map.on("movestart", handleMoveStart);
+  map.on("moveend", handleMoveEnd);
+  map.on("sourcedata", handleSourceData);
+  map.on("resize", handleResize);
+  canvas.addEventListener("mouseleave", handleLeave);
+  canvas.addEventListener("webglcontextlost", handleLeave);
+  window.addEventListener("blur", handleLeave);
+
   return () => {
-    map.off("sourcedata", handleSourceData);
-    map.off("idle", updateBuildings);
+    if (disposed) return;
+    disposed = true;
+    clear();
+    masks.clear();
     map.off("mousemove", handleMove);
-    map.off("movestart", clear);
-    canvas.removeEventListener("mouseleave", clear);
+    map.off("click", handleClick);
+    map.off("movestart", handleMoveStart);
+    map.off("moveend", handleMoveEnd);
+    map.off("sourcedata", handleSourceData);
+    map.off("resize", handleResize);
+    canvas.removeEventListener("mouseleave", handleLeave);
+    canvas.removeEventListener("webglcontextlost", handleLeave);
+    window.removeEventListener("blur", handleLeave);
+    for (const id of [glow.composite.id, SELECTED_LAYER, glow.capture.id, HIT_LAYER]) {
+      if (map.getLayer(id)) map.removeLayer(id);
+    }
+    if (map.getSource(SOURCE)) map.removeSource(SOURCE);
   };
 }
