@@ -8,7 +8,20 @@ import { describeBuilding, type BuildingDetails } from "@/lib/buildings";
 import { addLandmarkHover } from "@/lib/landmark-hover";
 import { towerCamera } from "@/lib/tower-camera";
 
-export default function ManhattanMap() {
+// TEMP: first-load diagnostics.
+const mapDebug = (step: string) =>
+  console.info(
+    `[map-debug] ${step} t=${Math.round(performance.now())} prerendering=${
+      (document as Document & { prerendering?: boolean }).prerendering
+    } visibility=${document.visibilityState}`,
+  );
+if (typeof window !== "undefined") {
+  mapDebug("module evaluated");
+  document.addEventListener("prerenderingchange", () => mapDebug("prerenderingchange"));
+  document.addEventListener("visibilitychange", () => mapDebug("visibilitychange"));
+}
+
+export default function ManhattanMap({ buildings }: { buildings: BuildingDetails[] }) {
   const viewRef = useRef<HTMLElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<Map | null>(null);
@@ -17,6 +30,7 @@ export default function ManhattanMap() {
   const [selected, setSelected] = useState<BuildingDetails | null>(null);
 
   useEffect(() => {
+    mapDebug(`effect start container=${Boolean(containerRef.current)}`);
     if (!containerRef.current) return;
 
     let cancelled = false;
@@ -26,7 +40,9 @@ export default function ManhattanMap() {
 
     async function initializeMap() {
       // Load the WebGL renderer only in the browser.
+      mapDebug("importing mapbox-gl");
       const { default: mapboxgl } = await import("mapbox-gl");
+      mapDebug(`imported cancelled=${cancelled} container=${Boolean(containerRef.current)}`);
       if (cancelled || !containerRef.current) return;
 
       const accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
@@ -36,6 +52,7 @@ export default function ManhattanMap() {
         return;
       }
 
+      mapDebug(`token=${Boolean(accessToken)} supported=${mapboxgl.supported()}`);
       if (!mapboxgl.supported()) {
         setError("Your browser needs WebGL support to display the 3D map.");
         return;
@@ -70,17 +87,21 @@ export default function ManhattanMap() {
         },
       });
       mapRef.current = map;
+      mapDebug("map created");
+      map.on("load", () => mapDebug("map load"));
       map.on("style.load", () => {
+        mapDebug("style.load");
         removeHover?.();
         if (map) {
           removeHover = addLandmarkHover(map, {
-            onHoverChange: (feature) => setHovered(feature && describeBuilding(feature)),
-            onSelect: (feature) => setSelected(feature && describeBuilding(feature)),
+            onHoverChange: (feature) => setHovered(feature && describeBuilding(feature, buildings)),
+            onSelect: (feature) => setSelected(feature && describeBuilding(feature, buildings)),
           });
         }
       });
       // Authentication failures are actionable; individual tile failures can recover.
       map.on("error", (event) => {
+        mapDebug(`map error ${String(event.error?.message ?? event.error)}`);
         const status = (event.error as Error & { status?: number }).status;
         if (status === 401 || status === 403) {
           setError(
@@ -93,20 +114,22 @@ export default function ManhattanMap() {
       resizeObserver.observe(containerRef.current);
     }
 
-    void initializeMap().catch(() => {
+    void initializeMap().catch((reason) => {
+      mapDebug(`initializeMap failed ${String(reason?.stack ?? reason)}`);
       if (!cancelled) {
         setError("The 3D map could not start. Try reloading the page.");
       }
     });
 
     return () => {
+      mapDebug(`cleanup map=${Boolean(map)}`);
       cancelled = true;
       removeHover?.();
       resizeObserver?.disconnect();
       map?.remove();
       mapRef.current = null;
     };
-  }, []);
+  }, [buildings]);
 
   const closePopup = useCallback(() => setSelected(null), []);
 
@@ -144,8 +167,8 @@ export default function ManhattanMap() {
   return (
     <main ref={viewRef} className="map-view" aria-label="Interactive 3D map of Midtown Manhattan">
       <div ref={containerRef} className="map-canvas" />
-      <BuildingTooltip building={tooltipBuilding} containerRef={viewRef} />
-      <BuildingPopup building={selected} onClose={closePopup} onFlyTo={flyTo} />
+      <BuildingTooltip building={tooltipBuilding} containerRef={viewRef} tallestHeightM={Math.max(0, ...buildings.map((building) => building.heightM))} />
+      <BuildingPopup building={selected} buildings={buildings} onClose={closePopup} onFlyTo={flyTo} />
       {error && (
         <div className="map-error" role="alert">
           <p>{error}</p>

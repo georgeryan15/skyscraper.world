@@ -2,7 +2,7 @@
 
 import { useEffect, useLayoutEffect, useRef, useState, type CSSProperties, type RefObject } from "react";
 import LiquidGlass from "./liquid-glass";
-import { TALLEST_HEIGHT_M, type BuildingDetails } from "@/lib/buildings";
+import type { BuildingDetails } from "@/lib/buildings";
 
 const DWELL_MS = 500;
 const EXIT_MS = 160;
@@ -15,9 +15,10 @@ type BuildingTooltipProps = {
   /** The building under the pointer, or null once the pointer leaves it. */
   building: BuildingDetails | null;
   containerRef: RefObject<HTMLElement | null>;
+  tallestHeightM: number;
 };
 
-export default function BuildingTooltip({ building, containerRef }: BuildingTooltipProps) {
+export default function BuildingTooltip({ building, containerRef, tallestHeightM }: BuildingTooltipProps) {
   const [revealed, setRevealed] = useState<BuildingDetails | null>(null);
   const anchorRef = useRef<HTMLDivElement>(null);
   const pointerRef = useRef<Pointer | null>(null);
@@ -68,7 +69,7 @@ export default function BuildingTooltip({ building, containerRef }: BuildingTool
   if (!revealed) return null;
 
   const { name, heightM, completed } = revealed;
-  const ratio = Math.min(1, heightM / TALLEST_HEIGHT_M);
+  const ratio = Math.min(1, heightM / Math.max(1, tallestHeightM));
 
   return (
     <div ref={anchorRef} className="building-tooltip" data-state={visible ? "open" : "closed"} aria-hidden="true">

@@ -7,12 +7,61 @@ A full-screen 3D Mapbox map of Midtown Manhattan, built with Next.js and TypeScr
 ```sh
 npm install
 cp .env.example .env
+npm run db:up
 npm run dev
 ```
 
 Set `NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN` in `.env`, then open http://localhost:3000.
 Local `.env` files are gitignored. Mapbox uses a public browser token, so Next.js
 includes this value in the client bundle; use a public token with appropriate URL restrictions.
+
+## Local PostgreSQL
+
+Docker must be running. `npm run db:up` starts PostgreSQL 18, waits for it to be
+healthy, applies the SQL migrations in `db/migrations/`, and imports all 10
+existing buildings from `db/buildings.seed.json`. The database is exposed only
+on `127.0.0.1:5432` and persists in the Compose `postgres_data` named volume.
+The volume mounts at `/var/lib/postgresql`, as required by the
+[PostgreSQL 18 Docker image](https://hub.docker.com/_/postgres).
+
+The defaults in `.env.example` are database/user `skyscraper` and local password
+`skyscraper_local`. The app and database scripts connect using `DATABASE_URL`.
+If you change the Compose credentials or port, update `DATABASE_URL` to match.
+Compose reads `.env`; the app and scripts also respect Next.js `.env.local`
+overrides. Changing `POSTGRES_USER`, `POSTGRES_DB`, or `POSTGRES_PASSWORD` after
+initialization does not change an existing database or role.
+
+```sh
+npm run db:up       # Start, migrate, and import; safe to repeat
+npm run db:down     # Stop/remove the container; retain the data volume
+npm run db:migrate  # Apply new numbered SQL migrations
+npm run db:seed     # Insert missing buildings; preserve existing DB edits
+npm run db:psql     # Open a SQL shell in the container
+npm run test:db     # Integration checks using a temporary, isolated schema
+```
+
+`buildings` stores the building's stable slug, Mapbox source and model ID,
+footprint centroid (longitude/latitude), name, address, neighborhood, height in
+metres, floor count, completion year, architect, architectural style, description,
+and photo URL/credit/licence/link. `additional_stats` is a JSON object for further
+statistics. `created_at` and automatically maintained `updated_at` track changes.
+Mapbox IDs are stored as text to preserve their exact values, with a unique
+constraint on `(mapbox_source, mapbox_model_id)` to prevent duplicate physical
+models. The model itself is served by Mapbox; the DB stores its identity and
+centroid rather than copying its mesh or treating a tile anchor as a footprint.
+
+For example, inside `npm run db:psql`:
+
+```sql
+SELECT name, mapbox_model_id, height_m, floors, completed_year FROM buildings ORDER BY height_m DESC;
+UPDATE buildings SET description = 'Your updated description.' WHERE id = 'empire-state-building';
+```
+
+The page reads PostgreSQL on the server for each request and passes the catalog
+to the map, tooltips, and details panel. Reload the page to see database edits.
+No database credentials are sent to the browser, and production builds do not
+need a running database. Add a new migration rather than editing an applied one;
+the migration runner detects changed checksums.
 
 The map uses Mapbox Standard's default colours and daytime lighting, with native
 3D buildings, landmarks, facades, and trees enabled. POI, business, landmark, and
@@ -66,9 +115,10 @@ screen. The zoom is chosen from the tower's height so it fills about 72% of the
 uncovered height, and the padding eases away when the panel closes. Catalogue
 coordinates are the footprint centroids of the landmark models.
 
-Building details are placeholder data in `src/lib/buildings.ts`. Model queries
-return each tile's anchor rather than the building's position, so towers are
-matched by landmark model id; other landmarks show their model height only.
+Building details come from the local PostgreSQL database, initially populated
+with the existing catalog in `db/buildings.seed.json`. Model queries return each
+tile's anchor rather than the building's position, so towers are matched by
+landmark model id; other landmarks show their model height only.
 Photos are hotlinked from Wikimedia Commons with their credit and licence.
 In Chromium the glass also refracts the map at its rim through an SVG
 displacement filter; other browsers keep the blur and specular rim.
@@ -95,6 +145,7 @@ See the [HeroUI documentation](https://heroui.com/en/docs/react/getting-started/
 npm run lint
 npm run typecheck
 npm test
+npm run test:db
 npm run build
 npm start
 ```

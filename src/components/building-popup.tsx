@@ -3,17 +3,18 @@
 import { useEffect, useId, useRef, useState, type CSSProperties } from "react";
 import { Button, CloseButton } from "@heroui/react";
 import LiquidGlass from "./liquid-glass";
-import { MIDTOWN_TOWERS, toFeet, type BuildingDetails, type BuildingPhoto } from "@/lib/buildings";
+import { toFeet, type BuildingDetails, type BuildingPhoto } from "@/lib/buildings";
 
 const EXIT_MS = 200;
 
 type BuildingPopupProps = {
   building: BuildingDetails | null;
+  buildings: BuildingDetails[];
   onClose: () => void;
   onFlyTo: (building: BuildingDetails, panel: HTMLElement | null) => void;
 };
 
-export default function BuildingPopup({ building, onClose, onFlyTo }: BuildingPopupProps) {
+export default function BuildingPopup({ building, buildings, onClose, onFlyTo }: BuildingPopupProps) {
   const [shown, setShown] = useState(building);
   const panelRef = useRef<HTMLElement>(null);
   const returnFocusRef = useRef<HTMLElement | null>(null);
@@ -62,6 +63,7 @@ export default function BuildingPopup({ building, onClose, onFlyTo }: BuildingPo
         <PopupContent
           key={details.id}
           building={details}
+          buildings={buildings}
           titleId={titleId}
           onClose={onClose}
           onFlyTo={() => onFlyTo(details, panelRef.current)}
@@ -73,12 +75,13 @@ export default function BuildingPopup({ building, onClose, onFlyTo }: BuildingPo
 
 type PopupContentProps = {
   building: BuildingDetails;
+  buildings: BuildingDetails[];
   titleId: string;
   onClose: () => void;
   onFlyTo: () => void;
 };
 
-function PopupContent({ building, titleId, onClose, onFlyTo }: PopupContentProps) {
+function PopupContent({ building, buildings, titleId, onClose, onFlyTo }: PopupContentProps) {
   const [copy, setCopy] = useState<"idle" | "copied" | "failed">("idle");
   const { name, address, neighborhood, heightM, floors, completed, style, architect, summary, photo } = building;
 
@@ -138,7 +141,7 @@ function PopupContent({ building, titleId, onClose, onFlyTo }: PopupContentProps
           )}
         </dl>
 
-        <Skyline building={building} />
+        <Skyline building={building} buildings={buildings} />
 
         <p className="building-popup__summary">{summary}</p>
 
@@ -183,10 +186,10 @@ function Photo({ photo, name }: { photo: BuildingPhoto; name: string }) {
 }
 
 /** Every tower in the catalog, shortest to tallest. */
-function Skyline({ building }: { building: BuildingDetails }) {
-  const towers = building.placeholder ? [...MIDTOWN_TOWERS, building] : MIDTOWN_TOWERS;
+function Skyline({ building, buildings }: { building: BuildingDetails; buildings: BuildingDetails[] }) {
+  const towers = building.placeholder ? [...buildings, building] : buildings;
   const byHeight = [...towers].sort((a, b) => a.heightM - b.heightM);
-  const tallest = byHeight.at(-1)!.heightM;
+  const tallest = Math.max(1, byHeight.at(-1)?.heightM ?? 0);
   const rank = towers.filter((tower) => tower.heightM > building.heightM).length + 1;
   return (
     <figure className="skyline">
