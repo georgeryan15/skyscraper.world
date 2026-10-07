@@ -84,7 +84,7 @@ export default function BuildingTooltip({ building, containerRef, tallestHeightM
           <span className="building-tooltip__name">{name}</span>
           <span className="building-tooltip__meta">
             <span className="building-tooltip__height">{heightM} m</span>
-            {completed ? ` tall, built ${completed}` : " tall"}
+            {completed ? ` tall, ${revealed.status === "topped-out" ? "listed for" : "built"} ${completed}` : " tall"}
           </span>
           <span className="building-tooltip__hint">Click for details</span>
         </span>

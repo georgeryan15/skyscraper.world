@@ -44,17 +44,25 @@ export async function seed(client) {
   await client.query("BEGIN");
   try {
     for (const building of buildings) {
+      if (building.modelGroup) {
+        await client.query(`INSERT INTO building_model_groups (id, mapbox_model_id) VALUES ($1, $2)
+          ON CONFLICT (id) DO NOTHING`, [building.modelGroup, building.modelId]);
+      }
       const result = await client.query(`
         INSERT INTO buildings (
           id, mapbox_model_id, name, address, neighborhood, longitude, latitude,
-          height_m, floors, completed_year, architect, architectural_style, description, photo
-        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
+          height_m, floors, completed_year, architect, architectural_style, description, photo,
+          city, country, status, source_url, source_rank, model_group
+        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20)
         ON CONFLICT (id) DO NOTHING
       `, [
-        building.id, building.modelId, building.name, building.address, building.neighborhood,
+        building.id, building.modelGroup ? null : building.modelId ?? null, building.name, building.address, building.neighborhood,
         building.coordinates[0], building.coordinates[1], building.heightM,
         building.floors ?? null, building.completed ?? null, building.architect ?? null,
         building.style ?? null, building.summary, building.photo ? JSON.stringify(building.photo) : null,
+        building.city ?? "", building.country ?? "", building.status ?? "completed",
+        building.sourceUrl ?? null, building.sourceRank ?? null,
+        building.modelGroup ?? null,
       ]);
       inserted += result.rowCount;
     }

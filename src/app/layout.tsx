@@ -8,7 +8,7 @@ const archivo = Archivo({ subsets: ["latin"], axes: ["wdth"], variable: "--font-
 
 export const metadata: Metadata = {
   title: "Skyscraper",
-  description: "Explore Midtown Manhattan in 3D.",
+  description: "Explore the world's tallest buildings, their stories, and their skylines in 3D.",
 };
 
 export default function RootLayout({

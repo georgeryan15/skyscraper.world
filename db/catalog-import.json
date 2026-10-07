@@ -1,0 +1,874 @@
+{
+  "source": "https://en.wikipedia.org/wiki/List_of_tallest_buildings#Tallest_buildings_in_the_world",
+  "retrievedOn": "2026-10-07",
+  "tableRows": 98,
+  "includedTableRows": 46,
+  "existingBuildingsRetained": 10,
+  "newBuildings": 39,
+  "catalogTotal": 49,
+  "excludedCountry": "China",
+  "excludedEntries": [
+    {
+      "name": "Shanghai Tower",
+      "rank": 3,
+      "city": "Shanghai"
+    },
+    {
+      "name": "Ping An Finance Centre",
+      "rank": 5,
+      "city": "Shenzhen"
+    },
+    {
+      "name": "Guangzhou CTF Finance Centre",
+      "rank": 8,
+      "city": "Guangzhou"
+    },
+    {
+      "name": "Tianjin CTF Finance Centre",
+      "rank": 8,
+      "city": "Tianjin"
+    },
+    {
+      "name": "CITIC Tower",
+      "rank": 10,
+      "city": "Beijing"
+    },
+    {
+      "name": "Shanghai World Financial Center",
+      "rank": 12,
+      "city": "Shanghai"
+    },
+    {
+      "name": "International Commerce Centre",
+      "rank": 13,
+      "city": "Hong Kong"
+    },
+    {
+      "name": "Wuhan Greenland Center",
+      "rank": 14,
+      "city": "Wuhan"
+    },
+    {
+      "name": "International Land-Sea Center",
+      "rank": 18,
+      "city": "Chongqing"
+    },
+    {
+      "name": "Changsha IFS T1",
+      "rank": 20,
+      "city": "Changsha"
+    },
+    {
+      "name": "Zifeng Tower",
+      "rank": 23,
+      "city": "Nanjing"
+    },
+    {
+      "name": "Suzhou International Financial Center",
+      "rank": 23,
+      "city": "Suzhou"
+    },
+    {
+      "name": "Wuhan Center",
+      "rank": 25,
+      "city": "Wuhan"
+    },
+    {
+      "name": "KK100",
+      "rank": 27,
+      "city": "Shenzhen"
+    },
+    {
+      "name": "Guangzhou International Finance Center",
+      "rank": 28,
+      "city": "Guangzhou"
+    },
+    {
+      "name": "Shandong International Financial Center",
+      "rank": 30,
+      "city": "Jinan"
+    },
+    {
+      "name": "Minying International Trade Center T2",
+      "rank": 36,
+      "city": "Dongguan"
+    },
+    {
+      "name": "Jin Mao Tower",
+      "rank": 37,
+      "city": "Shanghai"
+    },
+    {
+      "name": "Nanjing Financial City Phase II Plot C Tower 1",
+      "rank": 38,
+      "city": "Nanjing"
+    },
+    {
+      "name": "International Finance Centre",
+      "rank": 41,
+      "city": "Hong Kong"
+    },
+    {
+      "name": "Ningbo Central Plaza",
+      "rank": 43,
+      "city": "Ningbo"
+    },
+    {
+      "name": "Guangxi China Resources Tower",
+      "rank": 44,
+      "city": "Nanning"
+    },
+    {
+      "name": "Guiyang International Financial Center T1",
+      "rank": 45,
+      "city": "Guiyang"
+    },
+    {
+      "name": "China Merchants Bank Global Headquarters Main Tower",
+      "rank": 47,
+      "city": "Shenzhen"
+    },
+    {
+      "name": "China Resources Tower",
+      "rank": 48,
+      "city": "Shenzhen"
+    },
+    {
+      "name": "CITIC Plaza",
+      "rank": 50,
+      "city": "Guangzhou"
+    },
+    {
+      "name": "Citymark Centre",
+      "rank": 51,
+      "city": "Shenzhen"
+    },
+    {
+      "name": "Shum Yip Upperhills Tower 1",
+      "rank": 52,
+      "city": "Shenzhen"
+    },
+    {
+      "name": "Shun Hing Square",
+      "rank": 55,
+      "city": "Shenzhen"
+    },
+    {
+      "name": "Eton Place Dalian Tower 1",
+      "rank": 56,
+      "city": "Dalian"
+    },
+    {
+      "name": "Logan Century Center 1",
+      "rank": 58,
+      "city": "Nanning"
+    },
+    {
+      "name": "Riverview Plaza",
+      "rank": 63,
+      "city": "Wuhan"
+    },
+    {
+      "name": "Guangdong Business Center",
+      "rank": 64,
+      "city": "Guangzhou"
+    },
+    {
+      "name": "Dabaihui Plaza",
+      "rank": 65,
+      "city": "Shenzhen"
+    },
+    {
+      "name": "Central Plaza",
+      "rank": 66,
+      "city": "Hong Kong"
+    },
+    {
+      "name": "Hengfeng Guiyang Center Tower 1",
+      "rank": 68,
+      "city": "Guiyang"
+    },
+    {
+      "name": "Dalian International Trade Center",
+      "rank": 69,
+      "city": "Dalian"
+    },
+    {
+      "name": "Shanghai International Trade Center Tower 1",
+      "rank": 69,
+      "city": "Shanghai"
+    },
+    {
+      "name": "Haitian Center Tower 2",
+      "rank": 72,
+      "city": "Qingdao"
+    },
+    {
+      "name": "Golden Eagle Tiandi Tower A",
+      "rank": 73,
+      "city": "Nanjing"
+    },
+    {
+      "name": "Bank of China Tower",
+      "rank": 74,
+      "city": "Hong Kong"
+    },
+    {
+      "name": "Ping An Finance Center Tower 1",
+      "rank": 77,
+      "city": "Jinan"
+    },
+    {
+      "name": "Huiyun Center",
+      "rank": 79,
+      "city": "Shenzhen"
+    },
+    {
+      "name": "Hanking Center",
+      "rank": 80,
+      "city": "Shenzhen"
+    },
+    {
+      "name": "Greenland Group Suzhou Center",
+      "rank": 81,
+      "city": "Suzhou"
+    },
+    {
+      "name": "Galaxy World Tower 1",
+      "rank": 84,
+      "city": "Shenzhen"
+    },
+    {
+      "name": "Galaxy World Tower 2",
+      "rank": 84,
+      "city": "Shenzhen"
+    },
+    {
+      "name": "Raffles City Chongqing T3N",
+      "rank": 90,
+      "city": "Chongqing"
+    },
+    {
+      "name": "Raffles City Chongqing T4N",
+      "rank": 90,
+      "city": "Chongqing"
+    },
+    {
+      "name": "Forum 66 Tower 1",
+      "rank": 96,
+      "city": "Shenyang"
+    },
+    {
+      "name": "The Pinnacle",
+      "rank": 97,
+      "city": "Guangzhou"
+    },
+    {
+      "name": "Xi'an Glory International Financial Center",
+      "rank": 98,
+      "city": "Xi'an"
+    }
+  ],
+  "entries": [
+    {
+      "id": "burj-khalifa",
+      "sourceName": "Burj Khalifa",
+      "sourceRank": 1,
+      "sourceUrl": "https://en.wikipedia.org/wiki/Burj_Khalifa",
+      "references": [
+        "https://www.skyscrapercenter.com/building/burj-khalifa/3"
+      ],
+      "locationSource": "Mapbox native model anchor / footprint",
+      "modelId": "7986796344800398594",
+      "modelGroup": null,
+      "modelStatus": "verified-native"
+    },
+    {
+      "id": "merdeka-118",
+      "sourceName": "Merdeka Maybank Tower",
+      "sourceRank": 2,
+      "sourceUrl": "https://en.wikipedia.org/wiki/Merdeka_Maybank_Tower",
+      "references": [
+        "http://www.skyscrapercenter.com/building/merdeka-pnb118/10115"
+      ],
+      "locationSource": "Mapbox native model anchor / footprint",
+      "modelId": "16180634437115859167",
+      "modelGroup": null,
+      "modelStatus": "verified-native"
+    },
+    {
+      "id": "mecca-royal-clock-tower",
+      "sourceName": "Mecca Royal Clock Tower",
+      "sourceRank": 4,
+      "sourceUrl": "https://en.wikipedia.org/wiki/The_Clock_Towers",
+      "references": [
+        "https://www.skyscrapercenter.com/building/makkah-royal-clock-tower/84"
+      ],
+      "locationSource": "Wikipedia / Wikidata / OpenStreetMap",
+      "modelId": null,
+      "modelGroup": null,
+      "modelStatus": "no-matching-native-mesh"
+    },
+    {
+      "id": "lotte-world-tower",
+      "sourceName": "Lotte World Tower",
+      "sourceRank": 6,
+      "sourceUrl": "https://en.wikipedia.org/wiki/Lotte_World_Tower",
+      "references": [
+        "https://www.skyscrapercenter.com/building/lotte-world-tower/88"
+      ],
+      "locationSource": "Wikipedia / Wikidata / OpenStreetMap",
+      "modelId": null,
+      "modelGroup": null,
+      "modelStatus": "no-matching-native-mesh"
+    },
+    {
+      "id": "one-world-trade-center",
+      "sourceName": "One World Trade Center",
+      "sourceRank": 7,
+      "sourceUrl": "https://en.wikipedia.org/wiki/One_World_Trade_Center",
+      "references": [
+        "https://www.skyscrapercenter.com/building/one-world-trade-center/98"
+      ],
+      "locationSource": "Mapbox native model anchor / footprint",
+      "modelId": "15569251156989903497",
+      "modelGroup": null,
+      "modelStatus": "verified-native"
+    },
+    {
+      "id": "taipei-101",
+      "sourceName": "Taipei 101",
+      "sourceRank": 11,
+      "sourceUrl": "https://en.wikipedia.org/wiki/Taipei_101",
+      "references": [
+        "https://www.skyscrapercenter.com/building/taipei-101/117"
+      ],
+      "locationSource": "Mapbox native model anchor / footprint",
+      "modelId": "15796802039740856415",
+      "modelGroup": null,
+      "modelStatus": "verified-native"
+    },
+    {
+      "id": "central-park-tower",
+      "sourceName": "Central Park Tower",
+      "sourceRank": 15,
+      "sourceUrl": "https://en.wikipedia.org/wiki/Central_Park_Tower",
+      "references": [
+        "https://www.skyscrapercenter.com/building/central-park-tower/14269"
+      ],
+      "locationSource": "Mapbox native model anchor / footprint",
+      "modelId": "11021918850935045346",
+      "modelGroup": null,
+      "modelStatus": "verified-native"
+    },
+    {
+      "id": "lakhta-center",
+      "sourceName": "Lakhta Center",
+      "sourceRank": 16,
+      "sourceUrl": "https://en.wikipedia.org/wiki/Lakhta_Center",
+      "references": [
+        "https://www.skyscrapercenter.com/building/lakhta-center/12575"
+      ],
+      "locationSource": "Wikipedia / Wikidata / OpenStreetMap",
+      "modelId": null,
+      "modelGroup": null,
+      "modelStatus": "no-matching-native-mesh"
+    },
+    {
+      "id": "landmark-81",
+      "sourceName": "Landmark 81",
+      "sourceRank": 17,
+      "sourceUrl": "https://en.wikipedia.org/wiki/Landmark_81",
+      "references": [
+        "https://www.skyscrapercenter.com/building/vincom-landmark-81/18192"
+      ],
+      "locationSource": "Wikipedia / Wikidata / OpenStreetMap",
+      "modelId": null,
+      "modelGroup": null,
+      "modelStatus": "no-matching-native-mesh"
+    },
+    {
+      "id": "the-exchange-106",
+      "sourceName": "The Exchange 106",
+      "sourceRank": 19,
+      "sourceUrl": "https://en.wikipedia.org/wiki/The_Exchange_106",
+      "references": [
+        "https://www.skyscrapercenter.com/building/the-exchange-106/24971"
+      ],
+      "locationSource": "Mapbox native model anchor / footprint",
+      "modelId": "14043304557583578933",
+      "modelGroup": null,
+      "modelStatus": "verified-native"
+    },
+    {
+      "id": "petronas-tower-1",
+      "sourceName": "Petronas Tower 1",
+      "sourceRank": 21,
+      "sourceUrl": "https://en.wikipedia.org/wiki/Petronas_Tower_1",
+      "references": [
+        "https://www.skyscrapercenter.com/building/petronas-twin-tower-1/149",
+        "https://www.skyscrapercenter.com/building/petronas-twin-tower-2/150"
+      ],
+      "locationSource": "Wikipedia / Wikidata / OpenStreetMap",
+      "modelId": "12656543503739140818",
+      "modelGroup": "petronas-towers",
+      "modelStatus": "verified-native"
+    },
+    {
+      "id": "petronas-tower-2",
+      "sourceName": "Petronas Tower 2",
+      "sourceRank": 21,
+      "sourceUrl": "https://en.wikipedia.org/wiki/Petronas_Tower_2",
+      "references": [],
+      "locationSource": "Wikipedia / Wikidata / OpenStreetMap",
+      "modelId": "12656543503739140818",
+      "modelGroup": "petronas-towers",
+      "modelStatus": "verified-native"
+    },
+    {
+      "id": "willis-tower",
+      "sourceName": "Willis Tower",
+      "sourceRank": 26,
+      "sourceUrl": "https://en.wikipedia.org/wiki/Willis_Tower",
+      "references": [
+        "https://www.skyscrapercenter.com/building/willis-tower/169"
+      ],
+      "locationSource": "Mapbox native model anchor / footprint",
+      "modelId": "5966847395958097172",
+      "modelGroup": null,
+      "modelStatus": "verified-native"
+    },
+    {
+      "id": "111-west-57th-street",
+      "sourceName": "111 West 57th Street",
+      "sourceRank": 29,
+      "sourceUrl": "https://en.wikipedia.org/wiki/111_West_57th_Street",
+      "references": [
+        "https://www.skyscrapercenter.com/building/111-west-57th-street/14320"
+      ],
+      "locationSource": "Mapbox native model anchor / footprint",
+      "modelId": "9126799436238956810",
+      "modelGroup": null,
+      "modelStatus": "verified-native"
+    },
+    {
+      "id": "one-vanderbilt",
+      "sourceName": "One Vanderbilt",
+      "sourceRank": 31,
+      "sourceUrl": "https://en.wikipedia.org/wiki/One_Vanderbilt",
+      "references": [
+        "https://www.skyscrapercenter.com/building/one-vanderbilt-avenue/15833"
+      ],
+      "locationSource": "Mapbox native model anchor / footprint",
+      "modelId": "1105267467003890196",
+      "modelGroup": null,
+      "modelStatus": "verified-native"
+    },
+    {
+      "id": "432-park-avenue",
+      "sourceName": "432 Park Avenue",
+      "sourceRank": 32,
+      "sourceUrl": "https://en.wikipedia.org/wiki/432_Park_Avenue",
+      "references": [
+        "https://www.skyscrapercenter.com/building/432-park-avenue/13227"
+      ],
+      "locationSource": "Mapbox native model anchor / footprint",
+      "modelId": "10816826466631753493",
+      "modelGroup": null,
+      "modelStatus": "verified-native"
+    },
+    {
+      "id": "marina-101",
+      "sourceName": "Marina 101",
+      "sourceRank": 33,
+      "sourceUrl": "https://en.wikipedia.org/wiki/Marina_101",
+      "references": [
+        "https://www.skyscrapercenter.com/building/marina-101/207"
+      ],
+      "locationSource": "Wikipedia / Wikidata / OpenStreetMap",
+      "modelId": null,
+      "modelGroup": null,
+      "modelStatus": "no-matching-native-mesh"
+    },
+    {
+      "id": "trump-international-hotel-and-tower",
+      "sourceName": "Trump International Hotel and Tower",
+      "sourceRank": 34,
+      "sourceUrl": "https://en.wikipedia.org/wiki/Trump_International_Hotel_and_Tower_(Chicago)",
+      "references": [
+        "https://www.skyscrapercenter.com/building/trump-international-hotel-tower/203"
+      ],
+      "locationSource": "Mapbox native model anchor / footprint",
+      "modelId": "18237490619022094340",
+      "modelGroup": null,
+      "modelStatus": "verified-native"
+    },
+    {
+      "id": "270-park-avenue",
+      "sourceName": "270 Park Avenue",
+      "sourceRank": 35,
+      "sourceUrl": "https://en.wikipedia.org/wiki/270_Park_Avenue_(2025%E2%80%93present)",
+      "references": [
+        "https://www.skyscrapercenter.com/building/jpmorgan-chase-world-headquarters/34450"
+      ],
+      "locationSource": "Mapbox native model anchor / footprint",
+      "modelId": "12520060009192000714",
+      "modelGroup": null,
+      "modelStatus": "verified-native"
+    },
+    {
+      "id": "princess-tower",
+      "sourceName": "Princess Tower",
+      "sourceRank": 39,
+      "sourceUrl": "https://en.wikipedia.org/wiki/Princess_Tower",
+      "references": [
+        "https://www.skyscrapercenter.com/building/princess-tower/206"
+      ],
+      "locationSource": "Mapbox native model anchor / footprint",
+      "modelId": "11856810363552719915",
+      "modelGroup": null,
+      "modelStatus": "verified-native"
+    },
+    {
+      "id": "al-hamra-tower",
+      "sourceName": "Al Hamra Tower",
+      "sourceRank": 40,
+      "sourceUrl": "https://en.wikipedia.org/wiki/Al_Hamra_Tower",
+      "references": [
+        "https://www.skyscrapercenter.com/building/al-hamra-tower/208"
+      ],
+      "locationSource": "Wikipedia / Wikidata / OpenStreetMap",
+      "modelId": null,
+      "modelGroup": null,
+      "modelStatus": "no-matching-native-mesh"
+    },
+    {
+      "id": "haeundae-lct-the-sharp-landmark-tower",
+      "sourceName": "Haeundae LCT The Sharp Landmark Tower",
+      "sourceRank": 42,
+      "sourceUrl": "https://en.wikipedia.org/wiki/Haeundae_LCT_The_Sharp",
+      "references": [
+        "https://www.skyscrapercenter.com/building/lct-the-sharp-landmark-tower/108"
+      ],
+      "locationSource": "Wikipedia / Wikidata / OpenStreetMap",
+      "modelId": null,
+      "modelGroup": null,
+      "modelStatus": "no-matching-native-mesh"
+    },
+    {
+      "id": "iconic-tower",
+      "sourceName": "Iconic Tower",
+      "sourceRank": 46,
+      "sourceUrl": "https://en.wikipedia.org/wiki/Iconic_Tower_(Egypt)",
+      "references": [
+        "https://www.skyscrapercenter.com/building/iconic-tower/34420"
+      ],
+      "locationSource": "Mapbox native model anchor / footprint",
+      "modelId": "4723353526230066836",
+      "modelGroup": null,
+      "modelStatus": "verified-native"
+    },
+    {
+      "id": "23-marina",
+      "sourceName": "23 Marina",
+      "sourceRank": 49,
+      "sourceUrl": "https://en.wikipedia.org/wiki/23_Marina",
+      "references": [
+        "https://www.skyscrapercenter.com/building/23-marina/247"
+      ],
+      "locationSource": "Wikipedia / Wikidata / OpenStreetMap",
+      "modelId": null,
+      "modelGroup": null,
+      "modelStatus": "no-matching-native-mesh"
+    },
+    {
+      "id": "30-hudson-yards",
+      "sourceName": "30 Hudson Yards",
+      "sourceRank": 53,
+      "sourceUrl": "https://en.wikipedia.org/wiki/30_Hudson_Yards",
+      "references": [
+        "https://www.skyscrapercenter.com/building/30-hudson-yards/13325"
+      ],
+      "locationSource": "Mapbox native model anchor / footprint",
+      "modelId": "5533585409458852716",
+      "modelGroup": null,
+      "modelStatus": "verified-native"
+    },
+    {
+      "id": "public-investment-fund-tower",
+      "sourceName": "Public Investment Fund Tower",
+      "sourceRank": 54,
+      "sourceUrl": "https://en.wikipedia.org/wiki/Public_Investment_Fund_Tower",
+      "references": [],
+      "locationSource": "Mapbox native model anchor / footprint",
+      "modelId": "14021061523238567546",
+      "modelGroup": null,
+      "modelStatus": "verified-native"
+    },
+    {
+      "id": "autograph-tower",
+      "sourceName": "Autograph Tower",
+      "sourceRank": 57,
+      "sourceUrl": "https://en.wikipedia.org/wiki/Autograph_Tower",
+      "references": [
+        "https://www.skyscrapercenter.com/building/autograph-tower/39449"
+      ],
+      "locationSource": "Mapbox native model anchor / footprint",
+      "modelId": "11631389474183811019",
+      "modelGroup": null,
+      "modelStatus": "verified-native"
+    },
+    {
+      "id": "burj-mohammed-bin-rashid",
+      "sourceName": "Burj Mohammed bin Rashid",
+      "sourceRank": 59,
+      "sourceUrl": "https://en.wikipedia.org/wiki/Burj_Mohammed_Bin_Rashid",
+      "references": [
+        "https://www.skyscrapercenter.com/building/burj-mohammed-bin-rashid/259"
+      ],
+      "locationSource": "Wikipedia / Wikidata / OpenStreetMap",
+      "modelId": null,
+      "modelGroup": null,
+      "modelStatus": "no-matching-native-mesh"
+    },
+    {
+      "id": "empire-state-building",
+      "sourceName": "Empire State Building",
+      "sourceRank": 60,
+      "sourceUrl": "https://en.wikipedia.org/wiki/Empire_State_Building",
+      "references": [
+        "https://www.skyscrapercenter.com/building/empire-state-building/261"
+      ],
+      "locationSource": "Mapbox native model anchor / footprint",
+      "modelId": "10256212561568024566",
+      "modelGroup": null,
+      "modelStatus": "verified-native"
+    },
+    {
+      "id": "elite-residence",
+      "sourceName": "Elite Residence",
+      "sourceRank": 61,
+      "sourceUrl": "https://en.wikipedia.org/wiki/Elite_Residence",
+      "references": [
+        "https://www.skyscrapercenter.com/building/elite-residence/263"
+      ],
+      "locationSource": "Wikipedia / Wikidata / OpenStreetMap",
+      "modelId": null,
+      "modelGroup": null,
+      "modelStatus": "no-matching-native-mesh"
+    },
+    {
+      "id": "ciel-dubai-marina",
+      "sourceName": "Ciel Dubai Marina",
+      "sourceRank": 62,
+      "sourceUrl": "https://en.wikipedia.org/wiki/Ciel_Dubai_Marina",
+      "references": [
+        "https://www.skyscrapercenter.com/building/ciel-tower/34561"
+      ],
+      "locationSource": "Wikipedia / Wikidata / OpenStreetMap",
+      "modelId": null,
+      "modelGroup": null,
+      "modelStatus": "no-matching-native-mesh"
+    },
+    {
+      "id": "federation-tower-east-tower",
+      "sourceName": "Federation Tower (East Tower)",
+      "sourceRank": 67,
+      "sourceUrl": "https://en.wikipedia.org/wiki/Federation_Tower",
+      "references": [
+        "https://www.skyscrapercenter.com/building/federation-tower/118"
+      ],
+      "locationSource": "Wikipedia / Wikidata / OpenStreetMap",
+      "modelId": null,
+      "modelGroup": null,
+      "modelStatus": "no-matching-native-mesh"
+    },
+    {
+      "id": "kempinski-the-boulevard-dubai",
+      "sourceName": "Kempinski The Boulevard Dubai",
+      "sourceRank": 69,
+      "sourceUrl": "https://en.wikipedia.org/wiki/Kempinski_The_Boulevard_Dubai",
+      "references": [
+        "https://www.skyscrapercenter.com/building/the-address-boulevard/14606"
+      ],
+      "locationSource": "Wikipedia / Wikidata / OpenStreetMap",
+      "modelId": null,
+      "modelGroup": null,
+      "modelStatus": "no-matching-native-mesh"
+    },
+    {
+      "id": "bank-of-america-tower",
+      "sourceName": "Bank of America Tower",
+      "sourceRank": 75,
+      "sourceUrl": "https://en.wikipedia.org/wiki/Bank_of_America_Tower_(Manhattan)",
+      "references": [
+        "https://www.skyscrapercenter.com/building/bank-of-america-tower/291"
+      ],
+      "locationSource": "Mapbox native model anchor / footprint",
+      "modelId": "2268778884766788792",
+      "modelGroup": null,
+      "modelStatus": "verified-native"
+    },
+    {
+      "id": "st-regis-chicago",
+      "sourceName": "St. Regis Chicago",
+      "sourceRank": 76,
+      "sourceUrl": "https://en.wikipedia.org/wiki/St._Regis_Chicago",
+      "references": [
+        "https://www.skyscrapercenter.com/building/st-regis-chicago/17137"
+      ],
+      "locationSource": "Mapbox native model anchor / footprint",
+      "modelId": "8866657446112067206",
+      "modelGroup": null,
+      "modelStatus": "verified-native"
+    },
+    {
+      "id": "almas-tower",
+      "sourceName": "Almas Tower",
+      "sourceRank": 77,
+      "sourceUrl": "https://en.wikipedia.org/wiki/Almas_Tower",
+      "references": [
+        "https://www.skyscrapercenter.com/building/almas-tower/298"
+      ],
+      "locationSource": "Mapbox native model anchor / footprint",
+      "modelId": "8642950503957130350",
+      "modelGroup": null,
+      "modelStatus": "verified-native"
+    },
+    {
+      "id": "city-tower-1",
+      "sourceName": "City Tower 1",
+      "sourceRank": 81,
+      "sourceUrl": "https://pcparch.com/work/city-tower-1",
+      "references": [
+        "https://www.skyscrapercenter.com/building/city-tower-1/35099"
+      ],
+      "locationSource": "Wikipedia / Wikidata / OpenStreetMap",
+      "modelId": null,
+      "modelGroup": null,
+      "modelStatus": "no-matching-native-mesh"
+    },
+    {
+      "id": "gevora-hotel",
+      "sourceName": "Gevora Hotel",
+      "sourceRank": 83,
+      "sourceUrl": "https://en.wikipedia.org/wiki/Gevora_Hotel",
+      "references": [
+        "https://www.skyscrapercenter.com/building/gevora-hotel/348"
+      ],
+      "locationSource": "Mapbox native model anchor / footprint",
+      "modelId": "6281511926786606421",
+      "modelGroup": null,
+      "modelStatus": "verified-native"
+    },
+    {
+      "id": "il-primo-tower",
+      "sourceName": "Il Primo Tower",
+      "sourceRank": 84,
+      "sourceUrl": "https://en.wikipedia.org/wiki/Il_Primo_Dubai",
+      "references": [
+        "https://www.skyscrapercenter.com/building/wd/26116"
+      ],
+      "locationSource": "Wikipedia / Wikidata / OpenStreetMap",
+      "modelId": null,
+      "modelGroup": null,
+      "modelStatus": "no-matching-native-mesh"
+    },
+    {
+      "id": "jw-marriott-marquis-dubai-tower-1",
+      "sourceName": "JW Marriott Marquis Dubai Tower 1",
+      "sourceRank": 87,
+      "sourceUrl": "https://en.wikipedia.org/wiki/JW_Marriott_Marquis_Dubai",
+      "references": [
+        "https://www.skyscrapercenter.com/building/jw-marriott-marquis-hotel-dubai-tower-1/237",
+        "https://www.skyscrapercenter.com/building/jw-marriott-marquis-hotel-dubai-tower-2/238"
+      ],
+      "locationSource": "Wikipedia / Wikidata / OpenStreetMap",
+      "modelId": "14777613032161658567",
+      "modelGroup": "jw-marriott-marquis-dubai",
+      "modelStatus": "verified-native"
+    },
+    {
+      "id": "jw-marriott-marquis-dubai-tower-2",
+      "sourceName": "JW Marriott Marquis Dubai Tower 2",
+      "sourceRank": 87,
+      "sourceUrl": "https://en.wikipedia.org/wiki/JW_Marriott_Marquis_Dubai",
+      "references": [],
+      "locationSource": "Wikipedia / Wikidata / OpenStreetMap",
+      "modelId": "14777613032161658567",
+      "modelGroup": "jw-marriott-marquis-dubai",
+      "modelStatus": "verified-native"
+    },
+    {
+      "id": "emirates-office-tower",
+      "sourceName": "Emirates Office Tower",
+      "sourceRank": 89,
+      "sourceUrl": "https://en.wikipedia.org/wiki/Emirates_Office_Tower",
+      "references": [
+        "https://www.skyscrapercenter.com/building/emirates-tower-one/311"
+      ],
+      "locationSource": "Mapbox native model anchor / footprint",
+      "modelId": "13864744462363879684",
+      "modelGroup": null,
+      "modelStatus": "verified-native"
+    },
+    {
+      "id": "oko-south-tower",
+      "sourceName": "OKO – South Tower",
+      "sourceRank": 92,
+      "sourceUrl": "https://en.wikipedia.org/wiki/OKO",
+      "references": [
+        "https://www.skyscrapercenter.com/building/oko-residential-tower/363"
+      ],
+      "locationSource": "Wikipedia / Wikidata / OpenStreetMap",
+      "modelId": null,
+      "modelGroup": null,
+      "modelStatus": "no-matching-native-mesh"
+    },
+    {
+      "id": "cbrt-tower",
+      "sourceName": "CBRT Tower",
+      "sourceRank": 93,
+      "sourceUrl": "https://en.wikipedia.org/wiki/CBRT_Tower",
+      "references": [],
+      "locationSource": "Wikipedia / Wikidata / OpenStreetMap",
+      "modelId": null,
+      "modelGroup": null,
+      "modelStatus": "no-matching-native-mesh"
+    },
+    {
+      "id": "the-marina-torch",
+      "sourceName": "The Marina Torch",
+      "sourceRank": 93,
+      "sourceUrl": "https://en.wikipedia.org/wiki/The_Marina_Torch",
+      "references": [
+        "https://www.skyscrapercenter.com/building/the-torch/344"
+      ],
+      "locationSource": "Wikipedia / Wikidata / OpenStreetMap",
+      "modelId": null,
+      "modelGroup": null,
+      "modelStatus": "no-matching-native-mesh"
+    },
+    {
+      "id": "skytower-at-pinnacle-one-yonge",
+      "sourceName": "SkyTower at Pinnacle One Yonge",
+      "sourceRank": 95,
+      "sourceUrl": "https://en.wikipedia.org/wiki/Pinnacle_One_Yonge",
+      "references": [
+        "https://www.skyscrapercenter.com/building/skytower-at-pinnacle-one-yonge/15295"
+      ],
+      "locationSource": "Wikipedia / Wikidata / OpenStreetMap",
+      "modelId": null,
+      "modelGroup": null,
+      "modelStatus": "no-matching-native-mesh"
+    }
+  ],
+  "notes": [
+    "Heights, floor counts and listed years follow the requested table; source articles sometimes use different measurements or opening years.",
+    "The listed year is not proof of opening: City Tower 1 and SkyTower are marked topped-out.",
+    "No Chinese entries (including Hong Kong) were imported, following the user's instruction.",
+    "Native model IDs were read from Mapbox meshopt-v2-lod glTF metadata around each location; nearby unrelated meshes were rejected.",
+    "Two twin-tower complexes share their exact native mesh. Their individual records remain independently searchable.",
+    "Wikimedia photo credits and licences were read from imageinfo/extmetadata. Ciel uses an attributed official image; City Tower 1 uses an attributed architectural rendering. Copyright is retained for these two official images."
+  ]
+}

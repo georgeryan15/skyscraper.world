@@ -17,22 +17,39 @@ test("PostgreSQL migrations, catalog import, and app reads", async (t) => {
     await client.query(`CREATE SCHEMA "${schema}"`);
     await client.query(`SET search_path TO "${schema}"`);
 
-    await t.test("migration and seed reruns preserve all 10 buildings exactly", async () => {
+    await t.test("migration and seed reruns preserve the full catalogue exactly", async () => {
       await migrate(client);
-      assert.equal(await seed(client), 10);
+      assert.equal(await seed(client), catalog.length);
       await migrate(client);
       assert.equal(await seed(client), 0);
-      assert.equal((await client.query("SELECT count(*)::int AS count FROM schema_migrations")).rows[0].count, 1);
+      assert.equal((await client.query("SELECT count(*)::int AS count FROM schema_migrations")).rows[0].count, 4);
 
       const buildings = await listBuildings(client);
-      assert.equal(buildings.length, 10);
+      assert.equal(buildings.length, catalog.length);
       for (const expected of catalog) {
         const actual = buildings.find((building) => building.id === expected.id);
         assert.deepEqual(JSON.parse(JSON.stringify(actual)), expected);
-        assert.equal(describeBuilding({ id: expected.modelId }, buildings).name, expected.name);
+        if (expected.modelId) {
+          const resolved = describeBuilding({ id: expected.modelId }, buildings);
+          if (expected.modelGroup) assert.equal(resolved.modelGroup, expected.modelGroup);
+          else assert.equal(resolved.name, expected.name);
+        }
       }
-      assert.equal(buildings[0].heightM, 472);
+      assert.equal(buildings[0].heightM, 828);
       assert.equal(buildings.find((building) => building.id === "chrysler-building").modelId, "17031054187970504179");
+    });
+
+    await t.test("twins retain individual details while sharing one model identity", async () => {
+      const groups = (await client.query("SELECT * FROM building_model_groups")).rows;
+      assert.equal(groups.length, 2);
+      const twins = (await client.query("SELECT mapbox_model_id, model_group FROM buildings WHERE model_group IS NOT NULL")).rows;
+      assert.equal(twins.length, 4);
+      assert.ok(twins.every((tower) => tower.mapbox_model_id === null));
+      const buildings = await listBuildings(client);
+      const marriott = buildings.filter((tower) => tower.modelGroup === "jw-marriott-marquis-dubai");
+      assert.deepEqual(marriott.map((tower) => tower.completed).sort(), [2012, 2013]);
+      assert.equal(new Set(marriott.map((tower) => tower.modelId)).size, 1);
+      assert.equal(buildings.filter((tower) => tower.modelId === undefined).length, 19);
     });
 
     await t.test("database edits appear in app reads and survive reseeding", async () => {

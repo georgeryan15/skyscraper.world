@@ -50,6 +50,11 @@ export function isMajorMidtownBuilding(feature: Feature): boolean {
   return feature.geometry?.type === "Point" && isInMidtown(feature.geometry.coordinates);
 }
 
+/** Catalogue identities are global; the original Midtown discovery still works. */
+export function isEligibleBuilding(feature: Feature, modelIds: ReadonlySet<string>): boolean {
+  return (feature.id !== undefined && modelIds.has(String(feature.id))) || isMajorMidtownBuilding(feature);
+}
+
 type ModelBucket = { uploaded?: boolean; setFilter?: (filter: FilterSpecification) => void };
 type InternalStyle = {
   getOwnLayer?: (id: string) => { filter?: FilterSpecification } | undefined;
@@ -93,7 +98,7 @@ export type LandmarkEvents = {
 };
 
 /** Use the very same landmark meshes as Standard, including their material parts. */
-export function addLandmarkHover(map: Map, events: LandmarkEvents = {}): () => void {
+export function addLandmarkHover(map: Map, events: LandmarkEvents = {}, modelIds: ReadonlySet<string> = new Set()): () => void {
   map.addSource(SOURCE, { type: "batched-model", url: "mapbox://mapbox.mapbox-3dbuildings-v1" });
   // A root model source replaces the imported landmarks through Mapbox's
   // conflation. Render their muted base materials here as well as querying them.
@@ -275,7 +280,7 @@ export function addLandmarkHover(map: Map, events: LandmarkEvents = {}): () => v
     // candidate's silhouette once; cached ones are decided without rendering.
     const seen = new Set(selected ? [selected.id] : []);
     for (const candidate of map.queryRenderedFeatures(lastPoint, { layers: [HIT_LAYER] })) {
-      if (candidate.id === undefined || seen.has(candidate.id) || !isMajorMidtownBuilding(candidate)) continue;
+      if (candidate.id === undefined || seen.has(candidate.id) || !isEligibleBuilding(candidate, modelIds)) continue;
       seen.add(candidate.id);
       const mask = masks.get(candidate.id);
       if (!mask) {
@@ -318,6 +323,7 @@ export function addLandmarkHover(map: Map, events: LandmarkEvents = {}): () => v
     clear();
   }
   function handleClick(event: MapMouseEvent) {
+    if (event.defaultPrevented) return;
     if (shown && !leaving && selected) {
       events.onSelect?.(selected);
       return;
@@ -325,7 +331,7 @@ export function addLandmarkHover(map: Map, events: LandmarkEvents = {}): () => v
     // Touch has no hover to verify the model, so take the tallest candidate.
     const tapped = window.matchMedia("(hover: none)").matches
       ? map.queryRenderedFeatures(event.point, { layers: [HIT_LAYER] })
-        .filter(isMajorMidtownBuilding)
+        .filter((feature) => isEligibleBuilding(feature, modelIds))
         .sort((a, b) => Number(b.properties?.height) - Number(a.properties?.height))[0]
       : undefined;
     events.onSelect?.(tapped ?? null);

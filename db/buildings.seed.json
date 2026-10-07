@@ -1,5 +1,795 @@
 [
   {
+    "id": "burj-khalifa",
+    "name": "Burj Khalifa",
+    "address": "1 Sheikh Mohammed bin Rashid Boulevard",
+    "neighborhood": "",
+    "coordinates": [
+      55.2742124,
+      25.1970343
+    ],
+    "summary": "Dubai's record-breaking tower rises from a three-winged plan around a central core. Its 828-metre architectural height makes it the tallest building in the world.",
+    "heightM": 828.0,
+    "floors": 163,
+    "completed": 2010,
+    "city": "Dubai",
+    "country": "United Arab Emirates",
+    "status": "completed",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Burj_Khalifa",
+    "sourceRank": 1,
+    "architect": "Adrian Smith, Skidmore, Owings & Merrill",
+    "style": "Neo-futurism",
+    "modelId": "7986796344800398594",
+    "photo": {
+      "src": "https://thumb.wikimedia.org/wikipedia/en/thumb/9/93/Burj_Khalifa.jpg/960px-Burj_Khalifa.jpg",
+      "credit": "Donaldytong",
+      "license": "CC BY-SA 3.0",
+      "href": "https://en.wikipedia.org/wiki/File:Burj_Khalifa.jpg",
+      "licenseHref": "https://creativecommons.org/licenses/by-sa/3.0/"
+    }
+  },
+  {
+    "id": "merdeka-118",
+    "name": "Merdeka Maybank Tower (Merdeka 118)",
+    "address": "Jalan Hang Jebat",
+    "neighborhood": "",
+    "coordinates": [
+      101.70122,
+      3.1413356
+    ],
+    "summary": "Also known as Merdeka 118, this tower takes its name from the Malay word for independence and the neighbouring Stadium Merdeka. Its long spire helps it reach second place in the world rankings.",
+    "heightM": 678.9,
+    "floors": 118,
+    "completed": 2024,
+    "city": "Kuala Lumpur",
+    "country": "Malaysia",
+    "status": "completed",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Merdeka_Maybank_Tower",
+    "sourceRank": 2,
+    "architect": "Fender Katsalidis in association with RSP KL",
+    "style": "Neo-futurism and Malay traditional songket pattern",
+    "modelId": "16180634437115859167",
+    "photo": {
+      "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0d/Merdeka_Tower_20241022_-_full_2.jpg/960px-Merdeka_Tower_20241022_-_full_2.jpg",
+      "credit": "Ahmad Ali Karim",
+      "license": "CC0",
+      "href": "https://commons.wikimedia.org/wiki/File:Merdeka_Tower_20241022_-_full_2.jpg",
+      "licenseHref": "https://creativecommons.org/publicdomain/zero/1.0/deed.en"
+    }
+  },
+  {
+    "id": "mecca-royal-clock-tower",
+    "name": "Mecca Royal Clock Tower",
+    "address": "King Abdulaziz Road",
+    "neighborhood": "",
+    "coordinates": [
+      39.826388888889,
+      21.418888888889
+    ],
+    "summary": "The centrepiece of a seven-tower hotel complex beside Mecca's Grand Mosque. Its enormous clock faces sit above the city, with a museum housed near the top.",
+    "heightM": 601.0,
+    "floors": 120,
+    "completed": 2012,
+    "city": "Mecca",
+    "country": "Saudi Arabia",
+    "status": "completed",
+    "sourceUrl": "https://en.wikipedia.org/wiki/The_Clock_Towers",
+    "sourceRank": 4,
+    "architect": "SL Rasch GmbH and Dar Al-Handasah Architects",
+    "style": "Postmodern New Classical",
+    "photo": {
+      "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f4/Abraj-al-Bait-Towers.JPG/960px-Abraj-al-Bait-Towers.JPG",
+      "credit": "King Eliot",
+      "license": "CC BY-SA 3.0",
+      "href": "https://commons.wikimedia.org/wiki/File:Abraj-al-Bait-Towers.JPG",
+      "licenseHref": "https://creativecommons.org/licenses/by-sa/3.0"
+    }
+  },
+  {
+    "id": "lotte-world-tower",
+    "name": "Lotte World Tower",
+    "address": "300 Olympic-ro, Songpa-gu",
+    "neighborhood": "",
+    "coordinates": [
+      127.10278,
+      37.5125
+    ],
+    "summary": "South Korea's first building to pass 100 storeys combines homes, offices, shops and a hotel. A rooftop Sky Bridge tour takes visitors 541 metres above Seoul.",
+    "heightM": 554.5,
+    "floors": 123,
+    "completed": 2017,
+    "city": "Seoul",
+    "country": "South Korea",
+    "status": "completed",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Lotte_World_Tower",
+    "sourceRank": 6,
+    "architect": "Kohn Pedersen Fox",
+    "photo": {
+      "src": "https://thumb.wikimedia.org/wikipedia/en/thumb/2/28/Lotte_World_Tower_day_view_10.jpg/960px-Lotte_World_Tower_day_view_10.jpg",
+      "credit": "kallerna",
+      "license": "CC BY-SA 4.0",
+      "href": "https://en.wikipedia.org/wiki/File:Lotte_World_Tower_day_view_10.jpg",
+      "licenseHref": "https://creativecommons.org/licenses/by-sa/4.0/"
+    }
+  },
+  {
+    "id": "one-world-trade-center",
+    "name": "One World Trade Center",
+    "address": "285 Fulton Street",
+    "neighborhood": "",
+    "coordinates": [
+      -74.0131894,
+      40.7129983
+    ],
+    "summary": "The tower's symbolic 1,776-foot height recalls the year of American independence. It stands at the rebuilt World Trade Center, with an observatory above Lower Manhattan.",
+    "heightM": 541.3,
+    "floors": 104,
+    "completed": 2014,
+    "city": "New York City",
+    "country": "United States",
+    "status": "completed",
+    "sourceUrl": "https://en.wikipedia.org/wiki/One_World_Trade_Center",
+    "sourceRank": 7,
+    "architect": "David Childs, Skidmore, Owings & Merrill",
+    "style": "Contemporary modern",
+    "modelId": "15569251156989903497",
+    "photo": {
+      "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/72/New_York_and_Jersey_City_Skyline_Panorama_Crop_Edit_-_One_World_Trade_Center.jpg/960px-New_York_and_Jersey_City_Skyline_Panorama_Crop_Edit_-_One_World_Trade_Center.jpg",
+      "credit": "Pierre Blaché",
+      "license": "CC BY-SA 4.0",
+      "href": "https://commons.wikimedia.org/wiki/File:New_York_and_Jersey_City_Skyline_Panorama_Crop_Edit_-_One_World_Trade_Center.jpg",
+      "licenseHref": "https://creativecommons.org/licenses/by-sa/4.0"
+    }
+  },
+  {
+    "id": "taipei-101",
+    "name": "Taipei 101",
+    "address": "7 Xinyi Road, Section 5",
+    "neighborhood": "",
+    "coordinates": [
+      121.5645361,
+      25.0341423
+    ],
+    "summary": "Taipei 101 held the world height record before Burj Khalifa. Its high-speed lifts once set their own record, whisking visitors from the fifth to the 89th floor in 37 seconds.",
+    "heightM": 508.0,
+    "floors": 101,
+    "completed": 2004,
+    "city": "Taipei",
+    "country": "Taiwan",
+    "status": "completed",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Taipei_101",
+    "sourceRank": 11,
+    "architect": "C.Y. Lee and C.P. Wang",
+    "style": "Postmodern Neo-futurism",
+    "modelId": "15796802039740856415",
+    "photo": {
+      "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/02/Taipei_101_in_2019.jpg/960px-Taipei_101_in_2019.jpg",
+      "credit": "James Tang",
+      "license": "CC BY-SA 4.0",
+      "href": "https://commons.wikimedia.org/wiki/File:Taipei_101_in_2019.jpg",
+      "licenseHref": "https://creativecommons.org/licenses/by-sa/4.0"
+    }
+  },
+  {
+    "id": "central-park-tower",
+    "modelId": "11021918850935045346",
+    "name": "Central Park Tower",
+    "address": "217 West 57th Street",
+    "neighborhood": "Billionaires' Row",
+    "coordinates": [
+      -73.98092,
+      40.76638
+    ],
+    "heightM": 472.4,
+    "floors": 98,
+    "completed": 2021,
+    "architect": "Adrian Smith + Gordon Gill",
+    "style": "Contemporary",
+    "summary": "The tallest residential building in the world. A cantilever on its east side opens Central Park views from the upper floors.",
+    "photo": {
+      "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Central_Park_Tower_April_2021.jpg/960px-Central_Park_Tower_April_2021.jpg",
+      "credit": "Percival Kestreltail",
+      "license": "CC BY-SA 3.0",
+      "href": "https://commons.wikimedia.org/w/index.php?curid=106582145"
+    },
+    "city": "New York City",
+    "country": "United States",
+    "status": "completed",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Central_Park_Tower",
+    "sourceRank": 15
+  },
+  {
+    "id": "lakhta-center",
+    "name": "Lakhta Center",
+    "address": "Lakhtinsky Prospekt",
+    "neighborhood": "",
+    "coordinates": [
+      30.17814,
+      59.98703
+    ],
+    "summary": "Europe's tallest building rises on the outskirts of Saint Petersburg. Its twisting form also makes it one of the world's most northerly skyscrapers.",
+    "heightM": 462.0,
+    "floors": 87,
+    "completed": 2019,
+    "city": "Saint Petersburg",
+    "country": "Russia",
+    "status": "completed",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Lakhta_Center",
+    "sourceRank": 16,
+    "architect": "RMJM (until 2011), GORPROJECT",
+    "style": "Neo-futurism",
+    "photo": {
+      "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0d/Lakhta_Center_in_2018.jpg/960px-Lakhta_Center_in_2018.jpg",
+      "credit": "Andrey Korzun",
+      "license": "CC BY-SA 4.0",
+      "href": "https://commons.wikimedia.org/wiki/File:Lakhta_Center_in_2018.jpg",
+      "licenseHref": "https://creativecommons.org/licenses/by-sa/4.0"
+    }
+  },
+  {
+    "id": "landmark-81",
+    "name": "Landmark 81",
+    "address": "Vinhomes Central Park",
+    "neighborhood": "",
+    "coordinates": [
+      106.7219,
+      10.795
+    ],
+    "summary": "Vietnam's tallest building stands beside the Saigon River at the heart of Vinhomes Central Park. Its upper levels include a hotel and a multi-storey observation deck.",
+    "heightM": 461.2,
+    "floors": 81,
+    "completed": 2018,
+    "city": "Ho Chi Minh City",
+    "country": "Vietnam",
+    "status": "completed",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Landmark_81",
+    "sourceRank": 17,
+    "architect": "Atkins",
+    "style": "Neo-futurism",
+    "photo": {
+      "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4e/The_Landmark_81_at_night.jpg/960px-The_Landmark_81_at_night.jpg",
+      "credit": "Toanvungtau",
+      "license": "CC BY-SA 4.0",
+      "href": "https://commons.wikimedia.org/wiki/File:The_Landmark_81_at_night.jpg",
+      "licenseHref": "https://creativecommons.org/licenses/by-sa/4.0"
+    }
+  },
+  {
+    "id": "the-exchange-106",
+    "name": "The Exchange 106",
+    "address": "Tun Razak Exchange",
+    "neighborhood": "",
+    "coordinates": [
+      101.7187804,
+      3.1416597
+    ],
+    "summary": "This tower anchors Kuala Lumpur's Tun Razak Exchange financial district. It briefly overtook the Petronas Towers as Malaysia's tallest building before Merdeka 118 rose higher.",
+    "heightM": 453.6,
+    "floors": 95,
+    "completed": 2019,
+    "city": "Kuala Lumpur",
+    "country": "Malaysia",
+    "status": "completed",
+    "sourceUrl": "https://en.wikipedia.org/wiki/The_Exchange_106",
+    "sourceRank": 19,
+    "architect": "Group Architects; Peter Chan (Architect of Record)",
+    "modelId": "14043304557583578933",
+    "photo": {
+      "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/19/The_Exchange_106_20230317.jpg/960px-The_Exchange_106_20230317.jpg",
+      "credit": "InterEdit88",
+      "license": "CC BY-SA 4.0",
+      "href": "https://commons.wikimedia.org/wiki/File:The_Exchange_106_20230317.jpg",
+      "licenseHref": "https://creativecommons.org/licenses/by-sa/4.0"
+    }
+  },
+  {
+    "id": "petronas-tower-1",
+    "name": "Petronas Tower 1",
+    "address": "Kuala Lumpur City Centre",
+    "neighborhood": "",
+    "coordinates": [
+      101.71165,
+      3.15762
+    ],
+    "summary": "One half of the Petronas pair that held the world height record from 1998 to 2004. Its steel-and-glass exterior and star-shaped floor plan draw on Islamic geometric motifs.",
+    "heightM": 451.9,
+    "floors": 88,
+    "completed": 1998,
+    "city": "Kuala Lumpur",
+    "country": "Malaysia",
+    "status": "completed",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Petronas_Tower_1",
+    "sourceRank": 21,
+    "architect": "César Pelli; Adamson Associates",
+    "style": "Postmodern Islamic architecture",
+    "modelId": "12656543503739140818",
+    "modelGroup": "petronas-towers",
+    "photo": {
+      "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f6/The_Twins_SE_Asia_2019_%2849171985716%29_%28cropped%29_2.jpg/960px-The_Twins_SE_Asia_2019_%2849171985716%29_%28cropped%29_2.jpg",
+      "credit": "James Kerwin from Tbilisi",
+      "license": "CC BY 2.0",
+      "href": "https://commons.wikimedia.org/wiki/File:The_Twins_SE_Asia_2019_(49171985716)_(cropped)_2.jpg",
+      "licenseHref": "https://creativecommons.org/licenses/by/2.0"
+    }
+  },
+  {
+    "id": "petronas-tower-2",
+    "name": "Petronas Tower 2",
+    "address": "Kuala Lumpur City Centre",
+    "neighborhood": "",
+    "coordinates": [
+      101.712056,
+      3.1581806
+    ],
+    "summary": "The second of Kuala Lumpur's iconic Petronas twin towers shares a two-level skybridge with its neighbour. The pair remain the world's tallest twin skyscrapers.",
+    "heightM": 451.9,
+    "floors": 88,
+    "completed": 1998,
+    "city": "Kuala Lumpur",
+    "country": "Malaysia",
+    "status": "completed",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Petronas_Tower_2",
+    "sourceRank": 21,
+    "architect": "César Pelli; Adamson Associates",
+    "style": "Postmodern Islamic architecture",
+    "modelId": "12656543503739140818",
+    "modelGroup": "petronas-towers",
+    "photo": {
+      "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f6/The_Twins_SE_Asia_2019_%2849171985716%29_%28cropped%29_2.jpg/960px-The_Twins_SE_Asia_2019_%2849171985716%29_%28cropped%29_2.jpg",
+      "credit": "James Kerwin from Tbilisi",
+      "license": "CC BY 2.0",
+      "href": "https://commons.wikimedia.org/wiki/File:The_Twins_SE_Asia_2019_(49171985716)_(cropped)_2.jpg",
+      "licenseHref": "https://creativecommons.org/licenses/by/2.0"
+    }
+  },
+  {
+    "id": "willis-tower",
+    "name": "Willis Tower",
+    "address": "233 South Wacker Drive",
+    "neighborhood": "",
+    "coordinates": [
+      -87.6359627,
+      41.878732
+    ],
+    "summary": "Opened as the Sears Tower, this Chicago landmark held the world height record for nearly 25 years. Nine bundled structural tubes create its famous stepped silhouette.",
+    "heightM": 442.1,
+    "floors": 108,
+    "completed": 1974,
+    "city": "Chicago",
+    "country": "United States",
+    "status": "completed",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Willis_Tower",
+    "sourceRank": 26,
+    "style": "International",
+    "modelId": "5966847395958097172",
+    "photo": {
+      "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/02/Willis_Tower_From_Lake.jpg/960px-Willis_Tower_From_Lake.jpg",
+      "credit": "Chris6d",
+      "license": "Public domain",
+      "href": "https://commons.wikimedia.org/wiki/File:Willis_Tower_From_Lake.jpg"
+    },
+    "architect": "Bruce Graham, Skidmore, Owings & Merrill"
+  },
+  {
+    "id": "111-west-57th-street",
+    "modelId": "9126799436238956810",
+    "name": "Steinway Tower",
+    "address": "111 West 57th Street",
+    "neighborhood": "Billionaires' Row",
+    "coordinates": [
+      -73.97756,
+      40.76495
+    ],
+    "heightM": 435.3,
+    "floors": 84,
+    "completed": 2021,
+    "architect": "SHoP Architects",
+    "style": "Neo–Art Deco",
+    "summary": "One of the most slender skyscrapers ever built, with terracotta and bronze bands on its facade. It rises behind the 1925 Steinway Hall.",
+    "photo": {
+      "src": "https://upload.wikimedia.org/wikipedia/commons/e/e4/05_23_2022_Supertall_Building_111_West_57th_Street_from_Roof_NYC.jpg",
+      "credit": "Wil540 art",
+      "license": "CC BY-SA 4.0",
+      "href": "https://commons.wikimedia.org/w/index.php?curid=135723154"
+    },
+    "city": "New York City",
+    "country": "United States",
+    "status": "completed",
+    "sourceUrl": "https://en.wikipedia.org/wiki/111_West_57th_Street",
+    "sourceRank": 29
+  },
+  {
+    "id": "one-vanderbilt",
+    "modelId": "1105267467003890196",
+    "name": "One Vanderbilt",
+    "address": "1 Vanderbilt Avenue",
+    "neighborhood": "East Midtown",
+    "coordinates": [
+      -73.97854,
+      40.75297
+    ],
+    "heightM": 427.0,
+    "floors": 62,
+    "completed": 2020,
+    "architect": "Kohn Pedersen Fox",
+    "style": "Contemporary",
+    "summary": "Its tapering terracotta facade nods to the Chrysler Building nearby. An underground concourse links the tower directly to Grand Central.",
+    "photo": {
+      "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/One_Vanderbilt_April_2023.jpg/960px-One_Vanderbilt_April_2023.jpg",
+      "credit": "Percival Kestreltail",
+      "license": "CC BY-SA 4.0",
+      "href": "https://commons.wikimedia.org/w/index.php?curid=130772934"
+    },
+    "city": "New York City",
+    "country": "United States",
+    "status": "completed",
+    "sourceUrl": "https://en.wikipedia.org/wiki/One_Vanderbilt",
+    "sourceRank": 31
+  },
+  {
+    "id": "432-park-avenue",
+    "modelId": "10816826466631753493",
+    "name": "432 Park Avenue",
+    "address": "432 Park Avenue",
+    "neighborhood": "Billionaires' Row",
+    "coordinates": [
+      -73.97185,
+      40.7617
+    ],
+    "heightM": 425.7,
+    "floors": 85,
+    "completed": 2015,
+    "architect": "Rafael Viñoly",
+    "style": "Modernist",
+    "summary": "A slender concrete grid of identical square windows. Open floors every twelve storeys let wind pass through the tower.",
+    "photo": {
+      "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/432_Park_Avenue%2C_NY_%28cropped%292.jpg/960px-432_Park_Avenue%2C_NY_%28cropped%292.jpg",
+      "credit": "Percival Kestreltail",
+      "license": "CC BY-SA 4.0",
+      "href": "https://commons.wikimedia.org/w/index.php?curid=122145711"
+    },
+    "city": "New York City",
+    "country": "United States",
+    "status": "completed",
+    "sourceUrl": "https://en.wikipedia.org/wiki/432_Park_Avenue",
+    "sourceRank": 32
+  },
+  {
+    "id": "marina-101",
+    "name": "Marina 101",
+    "address": "Dubai Marina",
+    "neighborhood": "",
+    "coordinates": [
+      55.14863,
+      25.08898
+    ],
+    "summary": "Marina 101 mixes hotel floors and apartments above Dubai Marina. Its long construction programme outlasted the original developer's funding, delaying the opening well beyond its initial schedule.",
+    "heightM": 425.0,
+    "floors": 101,
+    "completed": 2017,
+    "city": "Dubai",
+    "country": "United Arab Emirates",
+    "status": "completed",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Marina_101",
+    "sourceRank": 33,
+    "architect": "National Engineering Bureau",
+    "style": "Postmodernist",
+    "photo": {
+      "src": "https://upload.wikimedia.org/wikipedia/en/6/60/Marina_101.jpg",
+      "credit": "Norlando Pobre ; cropped by Kestreltail",
+      "license": "CC BY 2.0",
+      "href": "https://en.wikipedia.org/wiki/File:Marina_101.jpg",
+      "licenseHref": "https://creativecommons.org/licenses/by/2.0/"
+    }
+  },
+  {
+    "id": "trump-international-hotel-and-tower",
+    "name": "Trump International Hotel and Tower",
+    "address": "401 North Wabash Avenue",
+    "neighborhood": "",
+    "coordinates": [
+      -87.6264569,
+      41.8889102
+    ],
+    "summary": "This glass tower stands beside the Chicago River, with a hotel below its residential floors. Adrian Smith designed it while at Skidmore, Owings & Merrill.",
+    "heightM": 423.2,
+    "floors": 98,
+    "completed": 2009,
+    "city": "Chicago",
+    "country": "United States",
+    "status": "completed",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Trump_International_Hotel_and_Tower_(Chicago)",
+    "sourceRank": 34,
+    "architect": "Adrian Smith",
+    "style": "Modern",
+    "modelId": "18237490619022094340",
+    "photo": {
+      "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ed/Trump_International_Hotel_and_Tower_2022.jpg/960px-Trump_International_Hotel_and_Tower_2022.jpg",
+      "credit": "Pedro Szekely",
+      "license": "CC BY-SA 4.0",
+      "href": "https://commons.wikimedia.org/wiki/File:Trump_International_Hotel_and_Tower_2022.jpg",
+      "licenseHref": "https://creativecommons.org/licenses/by-sa/4.0"
+    }
+  },
+  {
+    "id": "270-park-avenue",
+    "modelId": "12520060009192000714",
+    "name": "270 Park Avenue",
+    "address": "270 Park Avenue",
+    "neighborhood": "East Midtown",
+    "coordinates": [
+      -73.97597,
+      40.75598
+    ],
+    "heightM": 423.0,
+    "floors": 60,
+    "completed": 2025,
+    "architect": "Foster + Partners",
+    "style": "Contemporary",
+    "summary": "JPMorganChase's headquarters stands on a fan-column base that lifts the tower above the street. It replaced the bank's earlier tower on the same site.",
+    "photo": {
+      "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/270_Park_Avenue_Photomontage_%28cropped%29.jpg/960px-270_Park_Avenue_Photomontage_%28cropped%29.jpg",
+      "credit": "CrossingLights",
+      "license": "CC BY 4.0",
+      "href": "https://commons.wikimedia.org/w/index.php?curid=196443393"
+    },
+    "city": "New York City",
+    "country": "United States",
+    "status": "completed",
+    "sourceUrl": "https://en.wikipedia.org/wiki/270_Park_Avenue_(2025%E2%80%93present)",
+    "sourceRank": 35
+  },
+  {
+    "id": "princess-tower",
+    "name": "Princess Tower",
+    "address": "Dubai Marina",
+    "neighborhood": "",
+    "coordinates": [
+      55.146727,
+      25.0887082
+    ],
+    "summary": "Princess Tower held the record for the world's tallest residential building from 2012 to 2015. Its Dubai Marina tower contains more than 760 homes above six basement levels.",
+    "heightM": 413.4,
+    "floors": 101,
+    "completed": 2012,
+    "city": "Dubai",
+    "country": "United Arab Emirates",
+    "status": "completed",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Princess_Tower",
+    "sourceRank": 39,
+    "architect": "Eng. Adnan Saffarini Office",
+    "modelId": "11856810363552719915",
+    "photo": {
+      "src": "https://thumb.wikimedia.org/wikipedia/en/thumb/8/8f/Princess_Tower.jpg/960px-Princess_Tower.jpg",
+      "credit": "Norlando Pobre ; cropped by Kestreltail",
+      "license": "CC BY 2.0",
+      "href": "https://en.wikipedia.org/wiki/File:Princess_Tower.jpg",
+      "licenseHref": "https://creativecommons.org/licenses/by/2.0/"
+    }
+  },
+  {
+    "id": "al-hamra-tower",
+    "name": "Al Hamra Tower",
+    "address": "Al Shuhada Street, Sharq",
+    "neighborhood": "",
+    "coordinates": [
+      47.9932,
+      29.379
+    ],
+    "summary": "Kuwait's tallest building has an asymmetric form with tall flared walls. Glass wraps three sides, while the south-facing surface uses limestone to reduce exposure to the sun.",
+    "heightM": 412.6,
+    "floors": 80,
+    "completed": 2011,
+    "city": "Kuwait City",
+    "country": "Kuwait",
+    "status": "completed",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Al_Hamra_Tower",
+    "sourceRank": 40,
+    "architect": "Skidmore, Owings & Merrill",
+    "style": "Sculpted",
+    "photo": {
+      "src": "https://thumb.wikimedia.org/wikipedia/en/thumb/4/42/Al_Hamra_Tower.jpg/960px-Al_Hamra_Tower.jpg",
+      "credit": "Rob Faulkner",
+      "license": "CC BY 2.0",
+      "href": "https://en.wikipedia.org/wiki/File:Al_Hamra_Tower.jpg",
+      "licenseHref": "https://creativecommons.org/licenses/by/2.0/"
+    }
+  },
+  {
+    "id": "haeundae-lct-the-sharp-landmark-tower",
+    "name": "Haeundae LCT The Sharp Landmark Tower",
+    "address": "30 Dalmaji-gil, Haeundae",
+    "neighborhood": "",
+    "coordinates": [
+      129.169,
+      35.1603056
+    ],
+    "summary": "The tallest tower in a three-building complex facing Haeundae Beach. Its hotel and residences rise above shops, a spa and a water park, with an observatory on the 100th floor.",
+    "heightM": 411.6,
+    "floors": 101,
+    "completed": 2019,
+    "city": "Busan",
+    "country": "South Korea",
+    "status": "completed",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Haeundae_LCT_The_Sharp",
+    "sourceRank": 42,
+    "architect": "Skidmore Owings & Merrill ; Samoo Architects & Engineers",
+    "photo": {
+      "src": "https://thumb.wikimedia.org/wikipedia/en/thumb/2/28/Haeundae_LCT_The_Sharp_20200522.jpg/960px-Haeundae_LCT_The_Sharp_20200522.jpg",
+      "credit": "User:Mobius6",
+      "license": "CC BY-SA 4.0",
+      "href": "https://en.wikipedia.org/wiki/File:Haeundae_LCT_The_Sharp_20200522.jpg",
+      "licenseHref": "https://creativecommons.org/licenses/by-sa/4.0/"
+    }
+  },
+  {
+    "id": "iconic-tower",
+    "name": "Iconic Tower",
+    "address": "Central Business District",
+    "neighborhood": "",
+    "coordinates": [
+      31.693612,
+      30.0129016
+    ],
+    "summary": "Africa's tallest building anchors the business district of Egypt's new capital. It is the centrepiece of a planned group of twenty towers, with most floors devoted to offices.",
+    "heightM": 393.8,
+    "floors": 77,
+    "completed": 2023,
+    "city": "New Administrative Capital",
+    "country": "Egypt",
+    "status": "completed",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Iconic_Tower_(Egypt)",
+    "sourceRank": 46,
+    "architect": "Dar al-Handasah Shair & Partners",
+    "style": "Egyptian and modern",
+    "modelId": "4723353526230066836",
+    "photo": {
+      "src": "https://upload.wikimedia.org/wikipedia/commons/1/17/Iconic_Tower_Egypt%2818-6-2023%29_%28cropped%29.jpg",
+      "credit": "Mohamed Ouda",
+      "license": "CC BY-SA 4.0",
+      "href": "https://commons.wikimedia.org/wiki/File:Iconic_Tower_Egypt(18-6-2023)_(cropped).jpg",
+      "licenseHref": "https://creativecommons.org/licenses/by-sa/4.0"
+    }
+  },
+  {
+    "id": "23-marina",
+    "name": "23 Marina",
+    "address": "Dubai Marina",
+    "neighborhood": "",
+    "coordinates": [
+      55.1506333,
+      25.0898056
+    ],
+    "summary": "This slender residential tower stands at the northern end of Dubai Marina. Its 88 above-ground floors place homes almost 400 metres above the city.",
+    "heightM": 392.4,
+    "floors": 88,
+    "completed": 2012,
+    "city": "Dubai",
+    "country": "United Arab Emirates",
+    "status": "completed",
+    "sourceUrl": "https://en.wikipedia.org/wiki/23_Marina",
+    "sourceRank": 49,
+    "architect": "Hafeez Contractor KEO International Consultants",
+    "photo": {
+      "src": "https://upload.wikimedia.org/wikipedia/en/5/59/23_Marina.jpg",
+      "credit": "Eduard Marmet ; cropped by Kestreltail",
+      "license": "CC BY-SA 2.0",
+      "href": "https://en.wikipedia.org/wiki/File:23_Marina.jpg",
+      "licenseHref": "https://creativecommons.org/licenses/by-sa/2.0/"
+    }
+  },
+  {
+    "id": "30-hudson-yards",
+    "name": "30 Hudson Yards",
+    "address": "30 Hudson Yards",
+    "neighborhood": "",
+    "coordinates": [
+      -74.0009853,
+      40.7533833
+    ],
+    "summary": "The Edge observation deck projects from the 100th floor with a glass-floor viewing area. The tower belongs to the Hudson Yards development built above Manhattan's rail yards.",
+    "heightM": 387.1,
+    "floors": 73,
+    "completed": 2019,
+    "city": "New York City",
+    "country": "United States",
+    "status": "completed",
+    "sourceUrl": "https://en.wikipedia.org/wiki/30_Hudson_Yards",
+    "sourceRank": 53,
+    "architect": "Kohn Pedersen Fox",
+    "style": "Neo-futurism",
+    "modelId": "5533585409458852716",
+    "photo": {
+      "src": "https://upload.wikimedia.org/wikipedia/commons/f/fd/30_Hudson_Yards_in_2021.jpg",
+      "credit": "Williamsburger26",
+      "license": "CC BY-SA 4.0",
+      "href": "https://commons.wikimedia.org/wiki/File:30_Hudson_Yards_in_2021.jpg",
+      "licenseHref": "https://creativecommons.org/licenses/by-sa/4.0"
+    }
+  },
+  {
+    "id": "public-investment-fund-tower",
+    "name": "Public Investment Fund Tower",
+    "address": "King Abdullah Financial District",
+    "neighborhood": "",
+    "coordinates": [
+      46.6415173,
+      24.7636987
+    ],
+    "summary": "The centrepiece of Riyadh's King Abdullah Financial District was designed by HOK and Omrania. Its TWIN lift system allows two cabins to operate in a single shaft.",
+    "heightM": 385.0,
+    "floors": 72,
+    "completed": 2021,
+    "city": "Riyadh",
+    "country": "Saudi Arabia",
+    "status": "completed",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Public_Investment_Fund_Tower",
+    "sourceRank": 54,
+    "architect": "HOK; Omrania",
+    "modelId": "14021061523238567546",
+    "photo": {
+      "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e5/PIF_Tower_Riyadh_2024.jpeg/960px-PIF_Tower_Riyadh_2024.jpeg",
+      "credit": "Faisal Arif",
+      "license": "CC BY-SA 4.0",
+      "href": "https://commons.wikimedia.org/wiki/File:PIF_Tower_Riyadh_2024.jpeg",
+      "licenseHref": "https://creativecommons.org/licenses/by-sa/4.0"
+    }
+  },
+  {
+    "id": "autograph-tower",
+    "name": "Autograph Tower",
+    "address": "Jalan M.H. Thamrin",
+    "neighborhood": "",
+    "coordinates": [
+      106.8211359,
+      -6.1990989
+    ],
+    "summary": "Autograph Tower is the centrepiece of Jakarta's Thamrin Nine development. Its height made it Indonesia's tallest building and a landmark of the Southern Hemisphere.",
+    "heightM": 382.9,
+    "floors": 75,
+    "completed": 2022,
+    "city": "Jakarta",
+    "country": "Indonesia",
+    "status": "completed",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Autograph_Tower",
+    "sourceRank": 57,
+    "architect": "Kohn Pedersen Fox",
+    "modelId": "11631389474183811019",
+    "photo": {
+      "src": "https://thumb.wikimedia.org/wikipedia/en/thumb/1/1e/Autograph_Tower%2C_Jakarta%2C_ID_%E2%80%93_July_2022.png/960px-Autograph_Tower%2C_Jakarta%2C_ID_%E2%80%93_July_2022.png",
+      "credit": "User:Azurevanilla ash",
+      "license": "Public domain",
+      "href": "https://en.wikipedia.org/wiki/File:Autograph_Tower,_Jakarta,_ID_%E2%80%93_July_2022.png"
+    }
+  },
+  {
+    "id": "burj-mohammed-bin-rashid",
+    "name": "Burj Mohammed bin Rashid",
+    "address": "World Trade Center, Al Markaziyah",
+    "neighborhood": "",
+    "coordinates": [
+      54.357167,
+      24.487722
+    ],
+    "summary": "Abu Dhabi's tallest tower is the residential half of its World Trade Center complex. The development was reduced from three planned towers to two after the financial crisis.",
+    "heightM": 381.2,
+    "floors": 88,
+    "completed": 2014,
+    "city": "Abu Dhabi",
+    "country": "United Arab Emirates",
+    "status": "completed",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Burj_Mohammed_Bin_Rashid",
+    "sourceRank": 59,
+    "architect": "Foster + Partners",
+    "photo": {
+      "src": "https://thumb.wikimedia.org/wikipedia/en/thumb/1/1e/Burj_Mohammed_Bin_Rashid.jpg/960px-Burj_Mohammed_Bin_Rashid.jpg",
+      "credit": "Firas Elayan",
+      "license": "CC BY-SA 4.0",
+      "href": "https://en.wikipedia.org/wiki/File:Burj_Mohammed_Bin_Rashid.jpg",
+      "licenseHref": "https://creativecommons.org/licenses/by-sa/4.0/"
+    }
+  },
+  {
     "id": "empire-state-building",
     "modelId": "10256212561568024566",
     "name": "Empire State Building",
@@ -9,7 +799,7 @@
       -73.98564,
       40.74842
     ],
-    "heightM": 381,
+    "heightM": 381.0,
     "floors": 102,
     "completed": 1931,
     "architect": "Shreve, Lamb & Harmon",
@@ -20,6 +810,484 @@
       "credit": "Sam Valadi",
       "license": "Public domain",
       "href": "https://commons.wikimedia.org/w/index.php?curid=62752443"
+    },
+    "city": "New York City",
+    "country": "United States",
+    "status": "completed",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Empire_State_Building",
+    "sourceRank": 60
+  },
+  {
+    "id": "elite-residence",
+    "name": "Elite Residence",
+    "address": "Dubai Marina",
+    "neighborhood": "",
+    "coordinates": [
+      55.1478889,
+      25.0895694
+    ],
+    "summary": "Elite Residence overlooks Palm Jumeirah from Dubai Marina. When completed in 2012, it ranked among the world's tallest residential buildings.",
+    "heightM": 380.5,
+    "floors": 87,
+    "completed": 2012,
+    "city": "Dubai",
+    "country": "United Arab Emirates",
+    "status": "completed",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Elite_Residence",
+    "sourceRank": 61,
+    "architect": "Adnan Saffarini",
+    "photo": {
+      "src": "https://upload.wikimedia.org/wikipedia/en/b/ba/Elite_Residence_%28skyscraper%29_in_2016.jpg",
+      "credit": "Peter Chovanec ; cropped by Kestreltail",
+      "license": "CC BY 2.0",
+      "href": "https://en.wikipedia.org/wiki/File:Elite_Residence_(skyscraper)_in_2016.jpg",
+      "licenseHref": "https://creativecommons.org/licenses/by/2.0/"
+    }
+  },
+  {
+    "id": "ciel-dubai-marina",
+    "name": "Ciel Dubai Marina",
+    "address": "Dubai Marina",
+    "neighborhood": "",
+    "coordinates": [
+      55.14454,
+      25.08744
+    ],
+    "summary": "Ciel Dubai Marina was designed as a supertall hotel overlooking the marina. Its 377-metre height puts it above Dubai's earlier record-setting hotel towers.",
+    "heightM": 377.0,
+    "floors": 81,
+    "completed": 2025,
+    "city": "Dubai",
+    "country": "United Arab Emirates",
+    "status": "completed",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Ciel_Dubai_Marina",
+    "sourceRank": 62,
+    "architect": "Yahya Jan, NORR",
+    "photo": {
+      "src": "https://prodtfgstrg.blob.core.windows.net/media/5655642/ciel_architecture.jpg",
+      "credit": "The First Group",
+      "license": "Copyright retained",
+      "href": "https://www.thefirstgroup.com/en/our-properties/ciel/"
+    }
+  },
+  {
+    "id": "federation-tower-east-tower",
+    "name": "Federation Tower (East Tower)",
+    "address": "12 Presnenskaya Embankment",
+    "neighborhood": "",
+    "coordinates": [
+      37.5371389,
+      55.7497694
+    ],
+    "summary": "The eastern, taller half of Moscow's Federation Tower complex is also called Vostok. It took Europe's height record before Saint Petersburg's Lakhta Center surpassed it.",
+    "heightM": 373.7,
+    "floors": 93,
+    "completed": 2016,
+    "city": "Moscow",
+    "country": "Russia",
+    "status": "completed",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Federation_Tower",
+    "sourceRank": 67,
+    "architect": "Sergei Tchoban , Peter Schweger",
+    "style": "Postmodernism",
+    "photo": {
+      "src": "https://upload.wikimedia.org/wikipedia/commons/4/44/Federation_Tower_2022.jpg",
+      "credit": "kishjar?",
+      "license": "CC BY-SA 2.0",
+      "href": "https://commons.wikimedia.org/wiki/File:Federation_Tower_2022.jpg",
+      "licenseHref": "https://creativecommons.org/licenses/by-sa/2.0"
+    }
+  },
+  {
+    "id": "kempinski-the-boulevard-dubai",
+    "name": "Kempinski The Boulevard Dubai",
+    "address": "Sheikh Mohammed bin Rashid Boulevard",
+    "neighborhood": "",
+    "coordinates": [
+      55.2762,
+      25.2009
+    ],
+    "summary": "Formerly Address Boulevard, this Downtown Dubai tower combines hotel rooms and residences. Its upper floors look towards Burj Khalifa, while the hotel includes three swimming pools.",
+    "heightM": 370.0,
+    "floors": 73,
+    "completed": 2017,
+    "city": "Dubai",
+    "country": "United Arab Emirates",
+    "status": "completed",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Kempinski_The_Boulevard_Dubai",
+    "sourceRank": 69,
+    "architect": "Atkins (concept) NORR Group Consultants International Ltd. (schematic, detailed design & record)",
+    "style": "Postmodern architecture",
+    "photo": {
+      "src": "https://upload.wikimedia.org/wikipedia/en/2/2a/The_Address_Boulevard.jpg",
+      "credit": "Arun Katiyar ; cropped by Kestreltail",
+      "license": "CC BY-SA 2.0",
+      "href": "https://en.wikipedia.org/wiki/File:The_Address_Boulevard.jpg",
+      "licenseHref": "https://creativecommons.org/licenses/by-sa/2.0/"
+    }
+  },
+  {
+    "id": "bank-of-america-tower",
+    "modelId": "2268778884766788792",
+    "name": "Bank of America Tower",
+    "address": "1111 Avenue of the Americas",
+    "neighborhood": "Bryant Park",
+    "coordinates": [
+      -73.98472,
+      40.75556
+    ],
+    "heightM": 365.8,
+    "floors": 55,
+    "completed": 2009,
+    "architect": "COOKFOX",
+    "style": "Contemporary",
+    "summary": "Faceted glass walls catch light from every direction. The tower was among the first skyscrapers designed to the highest green-building rating.",
+    "photo": {
+      "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Bank_of_America_Tower_-_2025_%2854821833478%29.jpg/960px-Bank_of_America_Tower_-_2025_%2854821833478%29.jpg",
+      "credit": "Ajay Suresh",
+      "license": "CC BY 4.0",
+      "href": "https://commons.wikimedia.org/w/index.php?curid=175831444"
+    },
+    "city": "New York City",
+    "country": "United States",
+    "status": "completed",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Bank_of_America_Tower_(Manhattan)",
+    "sourceRank": 75
+  },
+  {
+    "id": "st-regis-chicago",
+    "name": "St. Regis Chicago",
+    "address": "363 East Wacker Drive",
+    "neighborhood": "",
+    "coordinates": [
+      -87.6172569,
+      41.8872369
+    ],
+    "summary": "Jeanne Gang's design stacks flowing, faceted sections above Chicago's Lakeshore East. On completion it became the world's tallest building designed by a woman.",
+    "heightM": 362.9,
+    "floors": 101,
+    "completed": 2020,
+    "city": "Chicago",
+    "country": "United States",
+    "status": "completed",
+    "sourceUrl": "https://en.wikipedia.org/wiki/St._Regis_Chicago",
+    "sourceRank": 76,
+    "architect": "Studio Gang Architects",
+    "modelId": "8866657446112067206",
+    "photo": {
+      "src": "https://upload.wikimedia.org/wikipedia/commons/b/b1/St.Regis_Chicago.jpg",
+      "credit": "Rgottlieb310",
+      "license": "CC BY-SA 4.0",
+      "href": "https://commons.wikimedia.org/wiki/File:St.Regis_Chicago.jpg",
+      "licenseHref": "https://creativecommons.org/licenses/by-sa/4.0"
+    }
+  },
+  {
+    "id": "almas-tower",
+    "name": "Almas Tower",
+    "address": "Jumeirah Lakes Towers",
+    "neighborhood": "",
+    "coordinates": [
+      55.1410943,
+      25.0690646
+    ],
+    "summary": "Almas means diamond in Arabic, fitting a tower that houses Dubai's diamond-trading businesses. It stands on an artificial island within Jumeirah Lakes Towers.",
+    "heightM": 360.0,
+    "floors": 68,
+    "completed": 2008,
+    "city": "Dubai",
+    "country": "United Arab Emirates",
+    "status": "completed",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Almas_Tower",
+    "sourceRank": 77,
+    "architect": "Atkins Middle East",
+    "style": "Modernism",
+    "modelId": "8642950503957130350",
+    "photo": {
+      "src": "https://thumb.wikimedia.org/wikipedia/en/thumb/4/4f/Almas_Tower.jpg/960px-Almas_Tower.jpg",
+      "credit": "Guilhem Vellut ; cropped by Kestreltail",
+      "license": "CC BY 2.0",
+      "href": "https://en.wikipedia.org/wiki/File:Almas_Tower.jpg",
+      "licenseHref": "https://creativecommons.org/licenses/by/2.0/"
+    }
+  },
+  {
+    "id": "city-tower-1",
+    "name": "City Tower 1",
+    "address": "50 Sheikh Zayed Road",
+    "neighborhood": "",
+    "coordinates": [
+      55.27924,
+      25.21888
+    ],
+    "summary": "City Tower One's deep facade grid and vertical sunshades give it a champagne-coloured finish. Its entrance screens draw on traditional mashrabiya patterns.",
+    "heightM": 358.0,
+    "floors": 94,
+    "completed": 2025,
+    "city": "Dubai",
+    "country": "United Arab Emirates",
+    "status": "topped-out",
+    "sourceUrl": "https://pcparch.com/work/city-tower-1",
+    "sourceRank": 81,
+    "architect": "Pelli Clarke & Partners",
+    "photo": {
+      "src": "https://pcparch.com/media/pages/work/city-tower-1/598b39461c-1737998834/city-tower-1-street-level.jpg",
+      "credit": "Bezier CG / Pelli Clarke & Partners",
+      "license": "Copyright retained",
+      "href": "https://pcparch.com/work/city-tower-1",
+      "caption": "Architectural rendering"
+    }
+  },
+  {
+    "id": "gevora-hotel",
+    "name": "Gevora Hotel",
+    "address": "Sheikh Zayed Road",
+    "neighborhood": "",
+    "coordinates": [
+      55.2772138,
+      25.2123695
+    ],
+    "summary": "This gold-toned tower opened as the world's tallest hotel building in 2018. It contains 528 rooms and a swimming pool above its parking structure.",
+    "heightM": 356.3,
+    "floors": 75,
+    "completed": 2017,
+    "city": "Dubai",
+    "country": "United Arab Emirates",
+    "status": "completed",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Gevora_Hotel",
+    "sourceRank": 83,
+    "modelId": "6281511926786606421",
+    "photo": {
+      "src": "https://thumb.wikimedia.org/wikipedia/en/thumb/f/f3/Gevora_Hotel.jpg/960px-Gevora_Hotel.jpg",
+      "credit": "Tristan Surtel",
+      "license": "CC BY-SA 4.0",
+      "href": "https://en.wikipedia.org/wiki/File:Gevora_Hotel.jpg",
+      "licenseHref": "https://creativecommons.org/licenses/by-sa/4.0/"
+    },
+    "architect": "Al Turath Engineering Consultants"
+  },
+  {
+    "id": "il-primo-tower",
+    "name": "Il Primo Tower",
+    "address": "Downtown Opera District",
+    "neighborhood": "",
+    "coordinates": [
+      55.27198,
+      25.19637
+    ],
+    "summary": "Il Primo rises beside Dubai Opera in the Downtown Opera District. Its residential floors were designed to take in views of Burj Khalifa and the surrounding landmarks.",
+    "heightM": 356.0,
+    "floors": 79,
+    "completed": 2022,
+    "city": "Dubai",
+    "country": "United Arab Emirates",
+    "status": "completed",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Il_Primo_Dubai",
+    "sourceRank": 84,
+    "architect": "Kohn Pedersen Fox",
+    "photo": {
+      "src": "https://thumb.wikimedia.org/wikipedia/en/thumb/c/c7/Il_Primo_Tower_Dubai.jpg/960px-Il_Primo_Tower_Dubai.jpg",
+      "credit": "Domenico Convertini",
+      "license": "CC BY-SA 2.0",
+      "href": "https://en.wikipedia.org/wiki/File:Il_Primo_Tower_Dubai.jpg",
+      "licenseHref": "https://creativecommons.org/licenses/by-sa/2.0/"
+    }
+  },
+  {
+    "id": "jw-marriott-marquis-dubai-tower-1",
+    "name": "JW Marriott Marquis Dubai Tower 1",
+    "address": "Sheikh Zayed Road, Business Bay",
+    "neighborhood": "",
+    "coordinates": [
+      55.25774,
+      25.18538
+    ],
+    "summary": "The first half of a twin-tower hotel complex with more than 1,600 rooms. Its faceted balconies and crown were inspired by the layered trunk of a date palm.",
+    "heightM": 355.4,
+    "floors": 82,
+    "completed": 2012,
+    "city": "Dubai",
+    "country": "United Arab Emirates",
+    "status": "completed",
+    "sourceUrl": "https://en.wikipedia.org/wiki/JW_Marriott_Marquis_Dubai",
+    "sourceRank": 87,
+    "architect": "Archgroup Consultants",
+    "style": "Postmodern",
+    "modelId": "14777613032161658567",
+    "modelGroup": "jw-marriott-marquis-dubai",
+    "photo": {
+      "src": "https://thumb.wikimedia.org/wikipedia/en/thumb/d/dc/JW_Marriott_Marquis_Dubai2.jpg/960px-JW_Marriott_Marquis_Dubai2.jpg",
+      "credit": "Tristan Surtel",
+      "license": "CC BY-SA 4.0",
+      "href": "https://en.wikipedia.org/wiki/File:JW_Marriott_Marquis_Dubai2.jpg",
+      "licenseHref": "https://creativecommons.org/licenses/by-sa/4.0/"
+    }
+  },
+  {
+    "id": "jw-marriott-marquis-dubai-tower-2",
+    "name": "JW Marriott Marquis Dubai Tower 2",
+    "address": "Sheikh Zayed Road, Business Bay",
+    "neighborhood": "",
+    "coordinates": [
+      55.25836,
+      25.18606
+    ],
+    "summary": "The second tower completes the JW Marriott Marquis pair above Business Bay. Both concrete frames topped out in 2010, with the towers opening in separate phases.",
+    "heightM": 355.4,
+    "floors": 82,
+    "completed": 2013,
+    "city": "Dubai",
+    "country": "United Arab Emirates",
+    "status": "completed",
+    "sourceUrl": "https://en.wikipedia.org/wiki/JW_Marriott_Marquis_Dubai",
+    "sourceRank": 87,
+    "architect": "Archgroup Consultants",
+    "style": "Postmodern",
+    "modelId": "14777613032161658567",
+    "modelGroup": "jw-marriott-marquis-dubai",
+    "photo": {
+      "src": "https://thumb.wikimedia.org/wikipedia/en/thumb/d/dc/JW_Marriott_Marquis_Dubai2.jpg/960px-JW_Marriott_Marquis_Dubai2.jpg",
+      "credit": "Tristan Surtel",
+      "license": "CC BY-SA 4.0",
+      "href": "https://en.wikipedia.org/wiki/File:JW_Marriott_Marquis_Dubai2.jpg",
+      "licenseHref": "https://creativecommons.org/licenses/by-sa/4.0/"
+    }
+  },
+  {
+    "id": "emirates-office-tower",
+    "name": "Emirates Office Tower",
+    "address": "Sheikh Zayed Road",
+    "neighborhood": "",
+    "coordinates": [
+      55.2830529,
+      25.217048
+    ],
+    "summary": "The office half of the Emirates Towers pair has a distinctive triangular plan. A retail boulevard connects it to its shorter hotel neighbour.",
+    "heightM": 354.6,
+    "floors": 54,
+    "completed": 2000,
+    "city": "Dubai",
+    "country": "United Arab Emirates",
+    "status": "completed",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Emirates_Office_Tower",
+    "sourceRank": 89,
+    "architect": "Hazel Wong, NORR",
+    "modelId": "13864744462363879684",
+    "photo": {
+      "src": "https://thumb.wikimedia.org/wikipedia/en/thumb/a/ae/DIFC_-_Dubai_-_United_Arab_Emirates_-_panoramio.jpg/960px-DIFC_-_Dubai_-_United_Arab_Emirates_-_panoramio.jpg",
+      "credit": "ianpudsey",
+      "license": "CC BY 3.0",
+      "href": "https://en.wikipedia.org/wiki/File:DIFC_-_Dubai_-_United_Arab_Emirates_-_panoramio.jpg",
+      "licenseHref": "https://creativecommons.org/licenses/by/3.0/"
+    }
+  },
+  {
+    "id": "oko-south-tower",
+    "name": "OKO – South Tower",
+    "address": "16 Moscow International Business Center",
+    "neighborhood": "",
+    "coordinates": [
+      37.5343583,
+      55.7495778
+    ],
+    "summary": "The taller, residential half of Moscow's OKO complex briefly held Europe's height record. Its name is both an old Russian word for eye and an abbreviation for the development's shared crystal base.",
+    "heightM": 354.2,
+    "floors": 90,
+    "completed": 2015,
+    "city": "Moscow",
+    "country": "Russia",
+    "status": "completed",
+    "sourceUrl": "https://en.wikipedia.org/wiki/OKO",
+    "sourceRank": 92,
+    "architect": "Skidmore, Owings and Merrill",
+    "style": "Postmodernism",
+    "photo": {
+      "src": "https://upload.wikimedia.org/wikipedia/commons/1/1a/Oko_towers1.jpg",
+      "credit": "mos.ru",
+      "license": "CC BY 4.0",
+      "href": "https://commons.wikimedia.org/wiki/File:Oko_towers1.jpg",
+      "licenseHref": "https://creativecommons.org/licenses/by/4.0"
+    }
+  },
+  {
+    "id": "cbrt-tower",
+    "name": "CBRT Tower",
+    "address": "Istanbul Financial Center, Finanskent",
+    "neighborhood": "",
+    "coordinates": [
+      29.11048,
+      41.002
+    ],
+    "summary": "Built for the Central Bank of the Republic of Turkey, this tower anchors Istanbul's Financial Center. It became the country's first supertall skyscraper.",
+    "heightM": 352.0,
+    "floors": 59,
+    "completed": 2024,
+    "city": "Istanbul",
+    "country": "Turkey",
+    "status": "completed",
+    "sourceUrl": "https://en.wikipedia.org/wiki/CBRT_Tower",
+    "sourceRank": 93,
+    "architect": "Vizzion Mimarlik",
+    "photo": {
+      "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/70/IFM_skyline_%28onlycbrt%29.jpg/960px-IFM_skyline_%28onlycbrt%29.jpg",
+      "credit": "Hello40339",
+      "license": "CC BY-SA 4.0",
+      "href": "https://commons.wikimedia.org/wiki/File:IFM_skyline_(onlycbrt).jpg",
+      "licenseHref": "https://creativecommons.org/licenses/by-sa/4.0"
+    }
+  },
+  {
+    "id": "the-marina-torch",
+    "name": "The Marina Torch",
+    "address": "Dubai Marina",
+    "neighborhood": "",
+    "coordinates": [
+      55.1475,
+      25.08806
+    ],
+    "summary": "The Marina Torch briefly held the world's residential height record when it opened in 2011. Its crown makes it a recognisable part of Dubai Marina's dense cluster of towers.",
+    "heightM": 352.0,
+    "floors": 86,
+    "completed": 2011,
+    "city": "Dubai",
+    "country": "United Arab Emirates",
+    "status": "completed",
+    "sourceUrl": "https://en.wikipedia.org/wiki/The_Marina_Torch",
+    "sourceRank": 93,
+    "architect": "Khatib and Alami National Engineering Bureau",
+    "photo": {
+      "src": "https://upload.wikimedia.org/wikipedia/en/b/bd/The_Marina_Torch.jpg",
+      "credit": "Oiva Eskola ; cropped by Kestreltail",
+      "license": "CC BY-SA 2.0",
+      "href": "https://en.wikipedia.org/wiki/File:The_Marina_Torch.jpg",
+      "licenseHref": "https://creativecommons.org/licenses/by-sa/2.0/"
+    }
+  },
+  {
+    "id": "skytower-at-pinnacle-one-yonge",
+    "name": "SkyTower at Pinnacle One Yonge",
+    "address": "1 Yonge Street",
+    "neighborhood": "",
+    "coordinates": [
+      -79.375,
+      43.64333
+    ],
+    "summary": "SkyTower is the tallest element of the Pinnacle One Yonge development on Toronto's waterfront. Its planned height grew during development, with the project intended to become Canada's tallest residential building.",
+    "heightM": 351.4,
+    "floors": 106,
+    "completed": 2026,
+    "city": "Toronto",
+    "country": "Canada",
+    "status": "topped-out",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Pinnacle_One_Yonge",
+    "sourceRank": 95,
+    "architect": "Hariri Pontarini Architects",
+    "photo": {
+      "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9e/SkyTower_Pinnacle_One_Yonge_2025-06-24.jpg/960px-SkyTower_Pinnacle_One_Yonge_2025-06-24.jpg",
+      "credit": "JK Liu",
+      "license": "CC BY-SA 4.0",
+      "href": "https://commons.wikimedia.org/wiki/File:SkyTower_Pinnacle_One_Yonge_2025-06-24.jpg",
+      "licenseHref": "https://creativecommons.org/licenses/by-sa/4.0"
     }
   },
   {
@@ -43,53 +1311,10 @@
       "credit": "David Shankbone, retouched by Overand",
       "license": "Public domain",
       "href": "https://commons.wikimedia.org/w/index.php?curid=6882882"
-    }
-  },
-  {
-    "id": "one-vanderbilt",
-    "modelId": "1105267467003890196",
-    "name": "One Vanderbilt",
-    "address": "1 Vanderbilt Avenue",
-    "neighborhood": "East Midtown",
-    "coordinates": [
-      -73.97854,
-      40.75297
-    ],
-    "heightM": 427,
-    "floors": 62,
-    "completed": 2020,
-    "architect": "Kohn Pedersen Fox",
-    "style": "Contemporary",
-    "summary": "Its tapering terracotta facade nods to the Chrysler Building nearby. An underground concourse links the tower directly to Grand Central.",
-    "photo": {
-      "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/One_Vanderbilt_April_2023.jpg/960px-One_Vanderbilt_April_2023.jpg",
-      "credit": "Percival Kestreltail",
-      "license": "CC BY-SA 4.0",
-      "href": "https://commons.wikimedia.org/w/index.php?curid=130772934"
-    }
-  },
-  {
-    "id": "270-park-avenue",
-    "modelId": "12520060009192000714",
-    "name": "270 Park Avenue",
-    "address": "270 Park Avenue",
-    "neighborhood": "East Midtown",
-    "coordinates": [
-      -73.97597,
-      40.75598
-    ],
-    "heightM": 423,
-    "floors": 60,
-    "completed": 2025,
-    "architect": "Foster + Partners",
-    "style": "Contemporary",
-    "summary": "JPMorganChase's headquarters stands on a fan-column base that lifts the tower above the street. It replaced the bank's earlier tower on the same site.",
-    "photo": {
-      "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/270_Park_Avenue_Photomontage_%28cropped%29.jpg/960px-270_Park_Avenue_Photomontage_%28cropped%29.jpg",
-      "credit": "CrossingLights",
-      "license": "CC BY 4.0",
-      "href": "https://commons.wikimedia.org/w/index.php?curid=196443393"
-    }
+    },
+    "city": "New York City",
+    "country": "United States",
+    "status": "completed"
   },
   {
     "id": "30-rockefeller-plaza",
@@ -112,99 +1337,10 @@
       "credit": "David.Cole",
       "license": "CC BY-SA 4.0",
       "href": "https://commons.wikimedia.org/w/index.php?curid=195049102"
-    }
-  },
-  {
-    "id": "central-park-tower",
-    "modelId": "11021918850935045346",
-    "name": "Central Park Tower",
-    "address": "217 West 57th Street",
-    "neighborhood": "Billionaires' Row",
-    "coordinates": [
-      -73.98092,
-      40.76638
-    ],
-    "heightM": 472,
-    "floors": 98,
-    "completed": 2020,
-    "architect": "Adrian Smith + Gordon Gill",
-    "style": "Contemporary",
-    "summary": "The tallest residential building in the world. A cantilever on its east side opens Central Park views from the upper floors.",
-    "photo": {
-      "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Central_Park_Tower_April_2021.jpg/960px-Central_Park_Tower_April_2021.jpg",
-      "credit": "Percival Kestreltail",
-      "license": "CC BY-SA 3.0",
-      "href": "https://commons.wikimedia.org/w/index.php?curid=106582145"
-    }
-  },
-  {
-    "id": "432-park-avenue",
-    "modelId": "10816826466631753493",
-    "name": "432 Park Avenue",
-    "address": "432 Park Avenue",
-    "neighborhood": "Billionaires' Row",
-    "coordinates": [
-      -73.97185,
-      40.7617
-    ],
-    "heightM": 426,
-    "floors": 85,
-    "completed": 2015,
-    "architect": "Rafael Viñoly",
-    "style": "Modernist",
-    "summary": "A slender concrete grid of identical square windows. Open floors every twelve storeys let wind pass through the tower.",
-    "photo": {
-      "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/432_Park_Avenue%2C_NY_%28cropped%292.jpg/960px-432_Park_Avenue%2C_NY_%28cropped%292.jpg",
-      "credit": "Percival Kestreltail",
-      "license": "CC BY-SA 4.0",
-      "href": "https://commons.wikimedia.org/w/index.php?curid=122145711"
-    }
-  },
-  {
-    "id": "111-west-57th-street",
-    "modelId": "9126799436238956810",
-    "name": "Steinway Tower",
-    "address": "111 West 57th Street",
-    "neighborhood": "Billionaires' Row",
-    "coordinates": [
-      -73.97756,
-      40.76495
-    ],
-    "heightM": 435,
-    "floors": 84,
-    "completed": 2021,
-    "architect": "SHoP Architects",
-    "style": "Neo–Art Deco",
-    "summary": "One of the most slender skyscrapers ever built, with terracotta and bronze bands on its facade. It rises behind the 1925 Steinway Hall.",
-    "photo": {
-      "src": "https://upload.wikimedia.org/wikipedia/commons/e/e4/05_23_2022_Supertall_Building_111_West_57th_Street_from_Roof_NYC.jpg",
-      "credit": "Wil540 art",
-      "license": "CC BY-SA 4.0",
-      "href": "https://commons.wikimedia.org/w/index.php?curid=135723154"
-    }
-  },
-  {
-    "id": "bank-of-america-tower",
-    "modelId": "2268778884766788792",
-    "name": "Bank of America Tower",
-    "address": "1111 Avenue of the Americas",
-    "neighborhood": "Bryant Park",
-    "coordinates": [
-      -73.98472,
-      40.75556
-    ],
-    "heightM": 366,
-    "floors": 55,
-    "completed": 2009,
-    "architect": "COOKFOX",
-    "style": "Contemporary",
-    "summary": "Faceted glass walls catch light from every direction. The tower was among the first skyscrapers designed to the highest green-building rating.",
-    "photo": {
-      "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Bank_of_America_Tower_-_2025_%2854821833478%29.jpg/960px-Bank_of_America_Tower_-_2025_%2854821833478%29.jpg",
-      "credit": "Ajay Suresh",
-      "license": "CC BY 4.0",
-      "href": "https://commons.wikimedia.org/w/index.php?curid=175831444"
-    }
+    },
+    "city": "New York City",
+    "country": "United States",
+    "status": "completed"
   },
   {
     "id": "metlife-building",
@@ -227,6 +1363,9 @@
       "credit": "Choinowski",
       "license": "CC BY-SA 4.0",
       "href": "https://commons.wikimedia.org/w/index.php?curid=148623496"
-    }
+    },
+    "city": "New York City",
+    "country": "United States",
+    "status": "completed"
   }
 ]

@@ -4,9 +4,11 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import type { Map } from "mapbox-gl";
 import BuildingPopup from "@/components/building-popup";
 import BuildingTooltip from "@/components/building-tooltip";
+import BuildingCatalog from "@/components/building-catalog";
 import { describeBuilding, type BuildingDetails } from "@/lib/buildings";
 import { addLandmarkHover } from "@/lib/landmark-hover";
 import { towerCamera } from "@/lib/tower-camera";
+import { addCatalogLocations } from "@/lib/catalog-locations";
 
 // TEMP: first-load diagnostics.
 const mapDebug = (step: string) =>
@@ -27,7 +29,9 @@ export default function ManhattanMap({ buildings }: { buildings: BuildingDetails
   const mapRef = useRef<Map | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [hovered, setHovered] = useState<BuildingDetails | null>(null);
+  const [hoveredLocation, setHoveredLocation] = useState<BuildingDetails | null>(null);
   const [selected, setSelected] = useState<BuildingDetails | null>(null);
+  const pendingFlightRef = useRef(false);
 
   useEffect(() => {
     mapDebug(`effect start container=${Boolean(containerRef.current)}`);
@@ -37,6 +41,7 @@ export default function ManhattanMap({ buildings }: { buildings: BuildingDetails
     let map: Map | undefined;
     let resizeObserver: ResizeObserver | undefined;
     let removeHover: (() => void) | undefined;
+    let removeLocations: (() => void) | undefined;
 
     async function initializeMap() {
       // Load the WebGL renderer only in the browser.
@@ -92,11 +97,13 @@ export default function ManhattanMap({ buildings }: { buildings: BuildingDetails
       map.on("style.load", () => {
         mapDebug("style.load");
         removeHover?.();
+        removeLocations?.();
         if (map) {
+          removeLocations = addCatalogLocations(map, buildings, { onHover: setHoveredLocation, onSelect: setSelected });
           removeHover = addLandmarkHover(map, {
             onHoverChange: (feature) => setHovered(feature && describeBuilding(feature, buildings)),
             onSelect: (feature) => setSelected(feature && describeBuilding(feature, buildings)),
-          });
+          }, new Set(buildings.flatMap((building) => building.modelId ? [building.modelId] : [])));
         }
       });
       // Authentication failures are actionable; individual tile failures can recover.
@@ -125,6 +132,7 @@ export default function ManhattanMap({ buildings }: { buildings: BuildingDetails
       mapDebug(`cleanup map=${Boolean(map)}`);
       cancelled = true;
       removeHover?.();
+      removeLocations?.();
       resizeObserver?.disconnect();
       map?.remove();
       mapRef.current = null;
@@ -154,21 +162,37 @@ export default function ManhattanMap({ buildings }: { buildings: BuildingDetails
     } else if (covered) {
       padding.bottom = view.bottom - covered.top;
     }
-    const camera = towerCamera(
+    const camera = building.modelId ? towerCamera(
       { coordinates: building.coordinates, heightM: building.heightM },
       { bearing: map.getBearing(), viewportHeight: view.height, padding },
-    );
+    ) : { center: building.coordinates, zoom: 16, pitch: 40, bearing: map.getBearing(), padding };
     map.flyTo({ ...camera, duration: 2400 });
   }, []);
 
+  useEffect(() => {
+    if (!selected || !pendingFlightRef.current) return;
+    pendingFlightRef.current = false;
+    flyTo(selected, viewRef.current?.querySelector<HTMLElement>(".building-popup") ?? null);
+  }, [selected, flyTo]);
+
   // The popup already names the building it was opened for.
-  const tooltipBuilding = hovered && hovered.id !== selected?.id ? hovered : null;
+  const activeHover = hoveredLocation ?? hovered;
+  const sameSelection = activeHover?.id === selected?.id || (activeHover?.modelGroup && activeHover.modelGroup === selected?.modelGroup);
+  const tooltipBuilding = activeHover && !sameSelection ? activeHover : null;
 
   return (
-    <main ref={viewRef} className="map-view" aria-label="Interactive 3D map of Midtown Manhattan">
+    <main ref={viewRef} className="map-view" aria-label="Interactive 3D map of the world's tallest buildings">
       <div ref={containerRef} className="map-canvas" />
+      <BuildingCatalog buildings={buildings} onSelect={(building) => {
+        if (building.id === selected?.id) {
+          flyTo(building, viewRef.current?.querySelector<HTMLElement>(".building-popup") ?? null);
+        } else {
+          pendingFlightRef.current = true;
+          setSelected(building);
+        }
+      }} />
       <BuildingTooltip building={tooltipBuilding} containerRef={viewRef} tallestHeightM={Math.max(0, ...buildings.map((building) => building.heightM))} />
-      <BuildingPopup building={selected} buildings={buildings} onClose={closePopup} onFlyTo={flyTo} />
+      <BuildingPopup building={selected} buildings={buildings} onClose={closePopup} onFlyTo={flyTo} onSelect={setSelected} />
       {error && (
         <div className="map-error" role="alert">
           <p>{error}</p>

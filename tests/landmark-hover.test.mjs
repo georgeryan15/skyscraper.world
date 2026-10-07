@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { addLandmarkHover, applyModelFilter, isMajorMidtownBuilding } from "../src/lib/landmark-hover.ts";
+import { addLandmarkHover, applyModelFilter, isEligibleBuilding, isMajorMidtownBuilding } from "../src/lib/landmark-hover.ts";
 import { maskBounds, maskCovers } from "../src/lib/landmark-hit-test.ts";
 
 function building(id, height = 260, coordinates = [-73.9792, 40.759]) {
@@ -66,7 +66,7 @@ const TOWER = { x0: 250, y0: 150, x1: 350, y1: 400 };
 const POINTER = { x: 300, y: 250 };
 const OUTSIDE = { x: 600, y: 600 };
 
-function setup(t, { reducedMotion = false, callbacks = {}, depthError = 0 } = {}) {
+function setup(t, { reducedMotion = false, callbacks = {}, depthError = 0, modelIds = new Set() } = {}) {
   const frames = new Map();
   let nextFrame = 0;
   let now = 1000;
@@ -123,7 +123,7 @@ function setup(t, { reducedMotion = false, callbacks = {}, depthError = 0 } = {}
     get: (object, key) => key in object ? object[key] : /^[A-Z0-9_]+$/.test(key) ? key.length : () => {},
   });
 
-  const dispose = addLandmarkHover(map, callbacks);
+  const dispose = addLandmarkHover(map, callbacks, modelIds);
   layers.get("landmark-edge-glow").onAdd(map, gl);
   t.after(() => {
     dispose();
@@ -167,6 +167,26 @@ test("A model is shown only once its traced silhouette is under the pointer", (t
   assert.equal(h.states.get("tower").hover, 1);
   assert.equal(h.uniforms.amount, 1);
   assert.equal(h.frames.size, 0, "Nothing animates once the highlight has settled");
+});
+
+test("Worldwide catalogue models use their traced setbacks and spires, not bounding boxes", (t) => {
+  const modelIds = new Set(["dubai-tower"]);
+  const feature = building("dubai-tower", 828, [55.27, 25.2]);
+  assert.equal(isEligibleBuilding(feature, modelIds), true);
+  assert.equal(isEligibleBuilding(building("other-dubai-model", 800, [55.27, 25.2]), modelIds), false);
+  const hovers = [];
+  const h = setup(t, { modelIds, callbacks: { onHoverChange: (value) => hovers.push(value?.id ?? null) } });
+  h.silhouettes.set("dubai-tower", [
+    { x0: 250, y0: 280, x1: 350, y1: 500 },
+    { x0: 275, y0: 150, x1: 325, y1: 280 },
+    { x0: 298, y0: 60, x1: 302, y1: 150 },
+  ]);
+  h.move([feature], { x: 260, y: 180 });
+  h.trace();
+  assert.deepEqual(hovers, [], "Empty space beside a setback must not highlight");
+  h.move([feature], { x: 300, y: 80 });
+  h.trace();
+  assert.deepEqual(hovers, ["dubai-tower"], "The narrow spire is part of the true silhouette");
 });
 
 test("Bounding-box false positives fall through to the visible model behind them", (t) => {
@@ -299,6 +319,8 @@ test("Clicks select only a shown model, and anything else clears the selection",
   h.trace();
   h.mapEvents.emit("click", { point: POINTER });
   assert.deepEqual(selections, [null, null, "tower"]);
+  h.mapEvents.emit("click", { point: POINTER, defaultPrevented: true });
+  assert.equal(selections.length, 3, "A location pin's selection must not be replaced by a native-model click");
   h.dispose();
   h.mapEvents.emit("click", { point: POINTER });
   assert.equal(selections.length, 3);

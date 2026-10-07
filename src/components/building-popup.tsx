@@ -3,7 +3,7 @@
 import { useEffect, useId, useRef, useState, type CSSProperties } from "react";
 import { Button, CloseButton } from "@heroui/react";
 import LiquidGlass from "./liquid-glass";
-import { toFeet, type BuildingDetails, type BuildingPhoto } from "@/lib/buildings";
+import { buildingAddress, toFeet, type BuildingDetails, type BuildingPhoto } from "@/lib/buildings";
 
 const EXIT_MS = 200;
 
@@ -12,9 +12,10 @@ type BuildingPopupProps = {
   buildings: BuildingDetails[];
   onClose: () => void;
   onFlyTo: (building: BuildingDetails, panel: HTMLElement | null) => void;
+  onSelect: (building: BuildingDetails) => void;
 };
 
-export default function BuildingPopup({ building, buildings, onClose, onFlyTo }: BuildingPopupProps) {
+export default function BuildingPopup({ building, buildings, onClose, onFlyTo, onSelect }: BuildingPopupProps) {
   const [shown, setShown] = useState(building);
   const panelRef = useRef<HTMLElement>(null);
   const returnFocusRef = useRef<HTMLElement | null>(null);
@@ -45,7 +46,7 @@ export default function BuildingPopup({ building, buildings, onClose, onFlyTo }:
       // Closing from inside the panel hands focus back to the map.
       if (panel?.contains(document.activeElement)) returnFocusRef.current?.focus({ preventScroll: true });
     };
-  }, [open, onClose]);
+  }, [open, building?.id, onClose]);
 
   const details = building ?? shown;
   if (!details) return null;
@@ -67,6 +68,7 @@ export default function BuildingPopup({ building, buildings, onClose, onFlyTo }:
           titleId={titleId}
           onClose={onClose}
           onFlyTo={() => onFlyTo(details, panelRef.current)}
+          onSelect={onSelect}
         />
       </LiquidGlass>
     </section>
@@ -79,11 +81,12 @@ type PopupContentProps = {
   titleId: string;
   onClose: () => void;
   onFlyTo: () => void;
+  onSelect: (building: BuildingDetails) => void;
 };
 
-function PopupContent({ building, buildings, titleId, onClose, onFlyTo }: PopupContentProps) {
+function PopupContent({ building, buildings, titleId, onClose, onFlyTo, onSelect }: PopupContentProps) {
   const [copy, setCopy] = useState<"idle" | "copied" | "failed">("idle");
-  const { name, address, neighborhood, heightM, floors, completed, style, architect, summary, photo } = building;
+  const { name, heightM, floors, completed, style, architect, summary, photo } = building;
 
   useEffect(() => {
     if (copy === "idle") return;
@@ -93,7 +96,7 @@ function PopupContent({ building, buildings, titleId, onClose, onFlyTo }: PopupC
 
   function copyAddress() {
     navigator.clipboard
-      .writeText(`${address}, New York, NY`)
+      .writeText(buildingAddress(building))
       .then(() => setCopy("copied"), () => setCopy("failed"));
   }
 
@@ -106,7 +109,12 @@ function PopupContent({ building, buildings, titleId, onClose, onFlyTo }: PopupC
 
       <div className="building-popup__body">
         <h2 id={titleId} className="building-popup__title">{name}</h2>
-        <p className="building-popup__address">{neighborhood ? `${address}, ${neighborhood}` : address}</p>
+        <p className="building-popup__address">{buildingAddress(building)}</p>
+        {building.modelGroup && <div className="building-popup__siblings" aria-label="Towers in this complex">
+          {buildings.filter((tower) => tower.modelGroup === building.modelGroup).map((tower) => (
+            <Button key={tower.id} size="sm" variant="secondary" aria-pressed={tower.id === building.id} onPress={() => onSelect(tower)}>{tower.name}</Button>
+          ))}
+        </div>}
 
         <dl className="building-popup__facts">
           <div>
@@ -123,7 +131,7 @@ function PopupContent({ building, buildings, titleId, onClose, onFlyTo }: PopupC
           ) : null}
           {completed ? (
             <div>
-              <dt>Completed</dt>
+              <dt>{building.status === "topped-out" ? "Topped out / expected" : "Completed"}</dt>
               <dd>{completed}</dd>
             </div>
           ) : null}
@@ -144,6 +152,8 @@ function PopupContent({ building, buildings, titleId, onClose, onFlyTo }: PopupC
         <Skyline building={building} buildings={buildings} />
 
         <p className="building-popup__summary">{summary}</p>
+        {building.sourceUrl && <p className="building-popup__source"><a href={building.sourceUrl} target="_blank" rel="noreferrer">Building facts ↗</a></p>}
+        {!building.modelId && !building.placeholder && <p className="building-popup__source">Explore this building by its location pin. A detailed 3D model is not available on the map yet.</p>}
 
         {!building.placeholder && (
           <div className="building-popup__actions">
@@ -171,12 +181,14 @@ function Photo({ photo, name }: { photo: BuildingPhoto; name: string }) {
       ) : (
         <>
           {/* eslint-disable-next-line @next/next/no-img-element -- Commons photos are hotlinked, not optimised. */}
-          <img src={photo.src} alt={name} decoding="async" onLoad={() => setStatus("loaded")} onError={() => setStatus("error")} />
+          <img src={photo.src} alt={photo.caption ? `${name} — ${photo.caption.toLowerCase()}` : name} decoding="async" onLoad={() => setStatus("loaded")} onError={() => setStatus("error")} />
           <LiquidGlass className="building-popup__credit" bezel={10} refraction={20}>
             <figcaption>
+              {photo.caption && <span>{photo.caption}. </span>}
               <a href={photo.href} target="_blank" rel="noreferrer">
-                {photo.credit}, {photo.license}
+                {photo.credit}
               </a>
+              {", "}<a href={photo.licenseHref ?? photo.href} target="_blank" rel="noreferrer">{photo.license}</a>
             </figcaption>
           </LiquidGlass>
         </>
@@ -204,7 +216,7 @@ function Skyline({ building, buildings }: { building: BuildingDetails; buildings
         ))}
       </div>
       <figcaption className="skyline__caption">
-        {rank === 1 ? "Tallest" : `${ordinal(rank)} tallest`} of {towers.length} Midtown towers
+        {rank === 1 ? "Tallest" : `${ordinal(rank)} tallest`} of {towers.length} catalogued buildings
       </figcaption>
     </figure>
   );
